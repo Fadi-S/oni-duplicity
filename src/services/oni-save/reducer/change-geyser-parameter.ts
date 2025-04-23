@@ -9,7 +9,7 @@ import {
   requireGameObject,
   tryModifySaveGame
 } from "./utils";
-import { SaveGame, GeyserBehavior } from "oni-save-parser";
+import { SaveGame, GeyserBehavior } from "@/parser/main";
 
 export default function changeGeyserParameterReducer(
   state: OniSaveState = defaultOniSaveState,

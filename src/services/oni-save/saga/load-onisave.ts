@@ -71,7 +71,7 @@ function createLoadChannel(data: ArrayBuffer, bypassVersionCheck: boolean) {
       });
 
     //This is the cancellation func.
-    // TODO: We can support cancellation in oni-save-parser rather easily.
+    // TODO: We can support cancellation in @/parser/main rather easily.
     return () => {};
   });
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { QualityLevelSettingValues } from "oni-save-parser";
+import { QualityLevelSettingValues } from "@/parser/main";
 import { useSelector, useDispatch } from "react-redux";
 import { find } from "lodash";
 

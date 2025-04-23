@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AIEffectsBehavior } from "oni-save-parser";
+import { AIEffectsBehavior } from "@/parser/main";
 import { merge } from "lodash";
 
 import { Trans } from "react-i18next";

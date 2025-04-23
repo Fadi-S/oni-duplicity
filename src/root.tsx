@@ -18,18 +18,18 @@ import ImportWarningDialog from "@/components/ImportWarningDialog";
 import Routes from "@/routes";
 
 const Root: React.FC = () => (
-  <I18NProvider>
-    <StoreProvider>
-      <ConnectedRouter history={history}>
-        <MuiThemeProvider theme={theme}>
-          <CssBaseline />
-          <LoadingDialog />
-          <ImportWarningDialog />
-          <Routes />
-        </MuiThemeProvider>
-      </ConnectedRouter>
-    </StoreProvider>
-  </I18NProvider>
+    <I18NProvider>
+        <StoreProvider>
+            <ConnectedRouter history={history}>
+                <MuiThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <LoadingDialog />
+                    <ImportWarningDialog />
+                    <Routes />
+                </MuiThemeProvider>
+            </ConnectedRouter>
+        </StoreProvider>
+    </I18NProvider>
 );
 
 export default Root;

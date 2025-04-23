@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AIAttributeLevelsBehavior, AttributeLevel } from "oni-save-parser";
+import { AIAttributeLevelsBehavior, AttributeLevel } from "@/parser/main";
 import { findIndex, merge } from "lodash";
 
 import { Trans } from "react-i18next";

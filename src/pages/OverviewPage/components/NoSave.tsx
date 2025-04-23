@@ -63,8 +63,8 @@ const NoSave: React.FC<Props> = ({ classes, t }) => (
         <Typography variant="h5">
           If you want to create your own editor and can work in javascript, the
           save parser is still fully operational and is located at{" "}
-          <a href="https://github.com/RoboPhred/oni-save-parser">
-            github:RoboPhred/oni-save-parser
+          <a href="https://github.com/RoboPhred/@/parser/main">
+            github:RoboPhred/@/parser/main
           </a>
         </Typography>
       </Paper>

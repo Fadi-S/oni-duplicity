@@ -10,7 +10,7 @@ import {
   changeStateBehaviorData,
   replaceGameObject
 } from "./utils";
-import { getGameObjectGroup, getBehavior } from "oni-save-parser";
+import { getGameObjectGroup, getBehavior } from "@/parser/main";
 
 export default function modifyDifficultyReducer(
   state: OniSaveState = defaultOniSaveState,

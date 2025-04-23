@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 import createCachedSelector from "re-reselect";
 import { find } from "lodash";
-import { getBehavior, SpacecraftManagerBehavior } from "oni-save-parser";
+import { getBehavior, SpacecraftManagerBehavior } from "@/parser/main";
 
 import { createServiceSelector } from "./utils";
 import { saveGameSelector } from "./save-game";

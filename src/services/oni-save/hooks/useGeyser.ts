@@ -1,5 +1,5 @@
 import * as React from "react";
-import { GeyserType, GeyserBehavior } from "oni-save-parser";
+import { GeyserType, GeyserBehavior } from "@/parser/main";
 import { useSelector, useDispatch } from "react-redux";
 
 import { AppState } from "@/state";

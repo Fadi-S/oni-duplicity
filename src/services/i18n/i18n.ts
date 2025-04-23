@@ -7,7 +7,7 @@ import { isProd } from "@/runtime-env";
 //  Deferring until I get a chance to focus on splitting the bundles.
 // import Backend from "i18next-xhr-backend";
 
-i18n.use(initReactI18next).init({
+i18n.use(initReactI18next).init(() => ({
   fallbackLng: "en",
 
   ns: ["common", "oni"],
@@ -44,6 +44,6 @@ i18n.use(initReactI18next).init({
   react: {
     wait: true
   }
-});
+}));
 
 export default i18n;

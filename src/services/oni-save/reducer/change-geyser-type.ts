@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { HashedString, GeyserBehavior, SaveGame } from "oni-save-parser";
+import { HashedString, GeyserBehavior, SaveGame } from "@/parser/main";
 
 import { OniSaveState, defaultOniSaveState } from "../state";
 

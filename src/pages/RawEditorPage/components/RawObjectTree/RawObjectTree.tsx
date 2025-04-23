@@ -1,6 +1,6 @@
 import * as React from "react";
 import { get } from "lodash";
-import { SaveGame } from "oni-save-parser";
+import { SaveGame } from "@/parser/main";
 
 import TreeView from "@material-ui/lab/TreeView";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";

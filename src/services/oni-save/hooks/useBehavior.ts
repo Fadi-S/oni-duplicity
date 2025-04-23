@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { GameObjectBehavior, BehaviorName, getBehavior } from "oni-save-parser";
+import { GameObjectBehavior, BehaviorName, getBehavior } from "@/parser/main";
 
 import { modifyBehavior, BehaviorDataTarget } from "../actions/modify-behavior";
 import { gameObjectsByIdSelector } from "../selectors/game-objects";

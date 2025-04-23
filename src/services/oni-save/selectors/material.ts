@@ -5,7 +5,7 @@ import {
   StorageBehavior,
   PrimaryElementBehavior,
   SimHashName
-} from "oni-save-parser";
+} from "@/parser/main";
 import { createSelector } from "reselect";
 import { values, orderBy, flatMap } from "lodash";
 

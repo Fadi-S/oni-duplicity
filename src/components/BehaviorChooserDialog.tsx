@@ -1,5 +1,5 @@
 import * as React from "react";
-import { BehaviorName } from "oni-save-parser";
+import { BehaviorName } from "@/parser/main";
 
 import { withTranslation, WithTranslation } from "react-i18next";
 

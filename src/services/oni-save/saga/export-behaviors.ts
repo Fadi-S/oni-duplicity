@@ -3,7 +3,7 @@ import {
   getBehavior,
   MinionIdentityBehavior,
   GameObject
-} from "oni-save-parser";
+} from "@/parser/main";
 import objectHash from "object-hash";
 
 import { saveAs } from "file-saver";

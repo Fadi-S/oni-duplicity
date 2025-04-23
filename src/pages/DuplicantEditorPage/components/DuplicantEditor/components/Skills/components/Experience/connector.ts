@@ -1,4 +1,4 @@
-import { MinionResumeBehavior } from "oni-save-parser";
+import { MinionResumeBehavior } from "@/parser/main";
 import { createSelector } from "reselect";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
@@ -17,6 +17,7 @@ const experienceSelector = createSelector(
     if (!resume) {
       return 0;
     }
+    // @ts-ignore
     return resume.templateData.totalExperienceGained;
   }
 );

@@ -1,4 +1,4 @@
-import { SaveGame } from "oni-save-parser";
+import { SaveGame } from "@/parser/main";
 
 export enum LoadingStatus {
   Idle = "idle",

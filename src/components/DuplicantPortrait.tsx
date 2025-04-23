@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AccessorizerBehavior, getAccessoryOfType } from "oni-save-parser";
+import { AccessorizerBehavior, getAccessoryOfType } from "@/parser/main";
 
 import { createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
 

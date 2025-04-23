@@ -3,7 +3,7 @@ import {
   getBehavior,
   KPrefabIDBehavior,
   GameObject
-} from "oni-save-parser";
+} from "@/parser/main";
 
 export function getGameObjectById(
   saveGame: SaveGame,

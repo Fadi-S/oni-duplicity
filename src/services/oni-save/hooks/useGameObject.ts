@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Vector3 } from "oni-save-parser";
+import { Vector3 } from "@/parser/main";
 import {
   gameObjectTypesByIdSelector,
   gameObjectsByIdSelector

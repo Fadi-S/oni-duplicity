@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { SpaceDestination } from "oni-save-parser";
+import { SpaceDestination } from "@/parser/main";
 
 import { AppState } from "@/state";
 

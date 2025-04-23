@@ -1,5 +1,5 @@
 import React from "react";
-import { DLCIds } from "oni-save-parser";
+import { DLCIds } from "@/parser/main";
 import { Redirect } from "react-router";
 
 import PageContainer from "@/components/PageContainer";

@@ -1,4 +1,4 @@
-import { parseSaveGame, writeSaveGame } from "oni-save-parser";
+import { parseSaveGame, writeSaveGame } from "@/parser/main";
 
 import {
   SaveParserCommandEvent,
@@ -52,7 +52,7 @@ function writeSave(command: WriteSaveCommand) {
   }
 }
 
-// Copied from progressReporter of oni-save-parser and
+// Copied from progressReporter of @/parser/main and
 //  modified to debounce messages
 let messageQueueTime = 0;
 let messageQueue: string | null = null;

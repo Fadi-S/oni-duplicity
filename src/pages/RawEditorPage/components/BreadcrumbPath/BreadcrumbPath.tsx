@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SaveGame } from "oni-save-parser";
+import { SaveGame } from "@/parser/main";
 
 import Typography from "@material-ui/core/Typography";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";

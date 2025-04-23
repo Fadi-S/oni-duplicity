@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { getBehavior, SaveGame, GameObject } from "oni-save-parser";
+import { getBehavior, SaveGame, GameObject } from "@/parser/main";
 
 import { OniSaveState, defaultOniSaveState, BehaviorCopyData } from "../state";
 

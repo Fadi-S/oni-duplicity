@@ -6,7 +6,7 @@ import {
   GameObjectBehavior,
   SaveGame,
   BehaviorName
-} from "oni-save-parser";
+} from "@/parser/main";
 
 import { defaultOniSaveState, OniSaveState } from "../state";
 import { isCloneDuplicantAction } from "../actions/clone-duplicant";
@@ -39,7 +39,7 @@ function shouldCloneBehavior(behavior: GameObjectBehavior): boolean {
   return BEHAVIOR_BLACKLIST.indexOf(behavior.name) === -1;
 }
 
-// TODO: Replace with imports from oni-save-parser next version.
+// TODO: Replace with imports from @/parser/main next version.
 const MinionAssignablesProxy: BehaviorName<MinionAssignablesProxy> =
   "MinionAssignablesProxy";
 interface MinionAssignablesProxy extends GameObjectBehavior {

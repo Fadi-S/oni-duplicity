@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { GameObjectBehavior, BehaviorName } from "oni-save-parser";
+import { GameObjectBehavior, BehaviorName } from "@/parser/main";
 
 export const ACTION_MODIFY_BEHAVIOR_PATH = "oni-save/modify-behavior-path";
 

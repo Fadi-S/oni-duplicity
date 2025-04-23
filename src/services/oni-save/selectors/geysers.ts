@@ -1,6 +1,6 @@
 import createCachedSelector from "re-reselect";
 import { gameObjectsByIdSelector } from "./game-objects";
-import { getBehavior, GeyserBehavior } from "oni-save-parser";
+import { getBehavior, GeyserBehavior } from "@/parser/main";
 
 export const geyserConfigSelector = createCachedSelector(
   gameObjectsByIdSelector,

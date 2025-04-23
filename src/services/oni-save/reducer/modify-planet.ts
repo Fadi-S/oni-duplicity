@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 import { find, findIndex } from "lodash";
-import { SpacecraftManagerBehavior } from "oni-save-parser";
+import { SpacecraftManagerBehavior } from "@/parser/main";
 
 import { OniSaveState, defaultOniSaveState } from "../state";
 import { isModifyPlanetAction } from "../actions/modify-planet";

@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { QualityLevelSettings } from "oni-save-parser";
+import { QualityLevelSettings } from "@/parser/main";
 
 export const ACTION_ONISAVE_MODIFY_DIFFICULTY = "oni-save/modify-difficulty";
 export const modifyDifficulty = (

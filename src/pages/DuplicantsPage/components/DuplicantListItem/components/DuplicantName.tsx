@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MinionIdentityBehavior } from "oni-save-parser";
+import { MinionIdentityBehavior } from "@/parser/main";
 
 import Typography from "@material-ui/core/Typography";
 

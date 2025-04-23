@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { SimHashName } from "oni-save-parser";
+import { SimHashName } from "@/parser/main";
 
 import { MaterialListItem, materialsSelector } from "../selectors/material";
 import { deleteLooseMaterial } from "../actions/delete-loose-material";

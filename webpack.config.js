@@ -2,10 +2,7 @@
 const path = require("path");
 
 const webpack = require("webpack");
-
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const WebpackPwaManifest = require("webpack-pwa-manifest");
-const WorkboxPlugin = require("workbox-webpack-plugin");
 
 const isDev = process.env["NODE_ENV"] === "development";
 
@@ -31,7 +28,7 @@ module.exports = {
   devtool: "source-map",
 
   devServer: {
-    contentBase: PATHS.appDist,
+    static: PATHS.appDist,
     hot: isDev,
     historyApiFallback: true
   },
@@ -60,8 +57,6 @@ module.exports = {
 
   module: {
     rules: [
-      // Process source maps in input sources
-      //  All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {
         enforce: "pre",
         test: /\.(jsx?|tsx?)$/,
@@ -71,16 +66,12 @@ module.exports = {
 
       {
         test: /\.tsx?$/,
-        use: [
-          {
-            loader: "ts-loader"
-          }
-        ]
+        use: [{ loader: "ts-loader" }]
       },
 
       {
         test: /\.css$/,
-        loader: ["style-loader", "css-loader"]
+        use: ["style-loader", "css-loader"]
       },
 
       {
@@ -98,18 +89,14 @@ module.exports = {
         test: /\.(ttf|eot|svg)$/,
         use: {
           loader: "file-loader",
-          options: {
-            name: "fonts/[hash].[ext]"
-          }
+          options: { name: "fonts/[hash].[ext]" }
         }
       },
 
       {
         test: /\.png/,
         loader: "file-loader",
-        options: {
-          name: "images/[hash].[ext]"
-        }
+        options: { name: "images/[hash].[ext]" }
       },
 
       {
@@ -129,21 +116,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve(PATHS.appSrc, "index.ejs")
-    }),
-
-    new WebpackPwaManifest({
-      name: `${friendlyName}: ${description}`,
-      short_name: friendlyName,
-      description,
-      background_color: "#000000",
-      crossorigin: null,
-      display: "standalone",
-      inject: true
-    }),
-
-    new WorkboxPlugin.GenerateSW({
-      clientsClaim: true,
-      skipWaiting: true
     })
   ],
 
@@ -156,10 +128,7 @@ module.exports = {
           test: /node_modules/,
           name: mod => {
             const relToModule = path.relative(PATHS.nodeModules, mod.context);
-            const moduleName = relToModule.substring(
-              0,
-              relToModule.indexOf(path.sep)
-            );
+            const moduleName = relToModule.substring(0, relToModule.indexOf(path.sep));
             return `npm.${moduleName}`;
           }
         }

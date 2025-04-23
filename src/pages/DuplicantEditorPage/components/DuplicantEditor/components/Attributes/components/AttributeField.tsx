@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AIAttributeLevelsBehavior } from "oni-save-parser";
+import { AIAttributeLevelsBehavior } from "@/parser/main";
 import { findIndex } from "lodash";
 
 import Typography from "@material-ui/core/Typography";

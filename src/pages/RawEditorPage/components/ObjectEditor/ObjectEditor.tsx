@@ -1,6 +1,6 @@
 import * as React from "react";
 import { get } from "lodash";
-import { SaveGame } from "oni-save-parser";
+import { SaveGame } from "@/parser/main";
 
 import { getSegmentEditor } from "../../editor-data";
 

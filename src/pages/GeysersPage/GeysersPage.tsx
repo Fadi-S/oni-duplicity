@@ -1,5 +1,5 @@
 import * as React from "react";
-import { GeyserTypeNames } from "oni-save-parser";
+import { GeyserTypeNames } from "@/parser/main";
 
 import { WithTranslation, withTranslation } from "react-i18next";
 

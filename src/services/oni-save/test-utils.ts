@@ -1,4 +1,4 @@
-import { BehaviorName, GameObjectBehavior } from "oni-save-parser";
+import { BehaviorName, GameObjectBehavior } from "@/parser/main";
 
 /**
  * Typecasting function to ensure type correctness of behavior data based on name.

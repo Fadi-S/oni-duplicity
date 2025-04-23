@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SimHashes } from "oni-save-parser";
+import { SimHashes } from "@/parser/main";
 
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";

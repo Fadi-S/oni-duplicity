@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AI_TRAIT_IDS, AITraitsBehavior } from "oni-save-parser";
+import { AI_TRAIT_IDS, AITraitsBehavior } from "@/parser/main";
 import { difference } from "lodash";
 
 import { WithTranslation, withTranslation } from "react-i18next";

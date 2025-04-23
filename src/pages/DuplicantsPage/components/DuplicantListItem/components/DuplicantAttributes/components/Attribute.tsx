@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AIAttributeLevelsBehavior } from "oni-save-parser";
+import { AIAttributeLevelsBehavior } from "@/parser/main";
 import { find } from "lodash";
 
 import { Trans, WithTranslation, withTranslation } from "react-i18next";

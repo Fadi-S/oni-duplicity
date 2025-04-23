@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { SaveGame } from "oni-save-parser";
+import { SaveGame } from "@/parser/main";
 import { merge } from "lodash";
 
 import { OniSaveState, defaultOniSaveState } from "../state";

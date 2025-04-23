@@ -6,7 +6,7 @@ import {
   AccessoryType,
   getAccessoryName,
   getIndexOfAccessoryType,
-} from "oni-save-parser";
+} from "@/parser/main";
 import { merge, padStart } from "lodash";
 
 import {

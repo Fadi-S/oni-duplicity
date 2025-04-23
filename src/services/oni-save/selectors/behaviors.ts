@@ -1,6 +1,6 @@
 import createCachedSelector, { ParametricSelector } from "re-reselect";
 import { has } from "lodash";
-import { getBehavior, GameObjectBehavior, BehaviorName } from "oni-save-parser";
+import { getBehavior, GameObjectBehavior, BehaviorName } from "@/parser/main";
 
 import { AppState } from "@/state";
 

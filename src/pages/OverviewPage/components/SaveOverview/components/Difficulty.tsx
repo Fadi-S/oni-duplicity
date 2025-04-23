@@ -1,5 +1,5 @@
 import * as React from "react";
-import { QualityLevelSettingValues } from "oni-save-parser";
+import { QualityLevelSettingValues } from "@/parser/main";
 
 import { createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";

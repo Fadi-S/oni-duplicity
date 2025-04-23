@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { SpaceDestination } from "oni-save-parser";
+import { SpaceDestination } from "@/parser/main";
 
 export const ACTION_ONISAVE_MODIFY_PLANET = "oni-save/modify-planet";
 export const modifyPlanet = (

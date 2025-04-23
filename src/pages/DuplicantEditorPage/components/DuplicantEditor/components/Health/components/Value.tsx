@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MinionModifiersBehavior } from "oni-save-parser";
+import { MinionModifiersBehavior } from "@/parser/main";
 import { find, findIndex, merge } from "lodash";
 
 import { Trans } from "react-i18next";

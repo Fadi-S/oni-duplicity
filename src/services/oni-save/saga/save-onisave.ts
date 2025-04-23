@@ -1,7 +1,7 @@
 import { eventChannel, END, SagaIterator } from "redux-saga";
 import { put, select, takeEvery, take } from "redux-saga/effects";
 
-import { SaveGame } from "oni-save-parser";
+import { SaveGame } from "@/parser/main";
 
 import { saveAs } from "file-saver";
 
@@ -95,7 +95,7 @@ function createSaveChannel(saveGame: SaveGame) {
       });
 
     //This is the cancellation func.
-    // TODO: We can support cancellation in oni-save-parser rather easily.
+    // TODO: We can support cancellation in @/parser/main rather easily.
     return () => {};
   });
 }

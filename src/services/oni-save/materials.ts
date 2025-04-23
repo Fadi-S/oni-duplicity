@@ -1,4 +1,4 @@
-import { SimHashNames } from "oni-save-parser";
+import { SimHashNames } from "@/parser/main";
 
 // TODO: Seeds, clothing, other sweepables
 export const MaterialGameObjectNames = [...SimHashNames];

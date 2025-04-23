@@ -5,7 +5,7 @@ import {
   GameObjectBehavior,
   GameObjectGroup,
   getBehavior,
-} from "oni-save-parser";
+} from "@/parser/main";
 import { findIndex } from "lodash";
 
 import { getGameObjectId } from "../utils";

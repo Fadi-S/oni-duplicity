@@ -13,7 +13,7 @@ import {
 } from "@/services/oni-save/selectors/loading-status";
 
 import PageContainer from "@/components/PageContainer";
-import { E_VERSION_MAJOR, E_VERSION_MINOR } from "oni-save-parser";
+import { E_VERSION_MAJOR, E_VERSION_MINOR } from "@/parser/main";
 import { loadOniSave } from "@/services/oni-save/actions/load-onisave";
 
 const useStyles = makeStyles((theme: Theme) =>

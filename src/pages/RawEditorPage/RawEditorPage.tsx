@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SaveGame } from "oni-save-parser";
+import { SaveGame } from "@/parser/main";
 
 import { makeStyles, Theme } from "@material-ui/core/styles";
 

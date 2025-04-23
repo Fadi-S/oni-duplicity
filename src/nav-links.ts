@@ -1,4 +1,4 @@
-import { DLCIds } from "oni-save-parser";
+import { DLCIds } from "@/parser/main";
 
 export interface NavItem {
   name: string;

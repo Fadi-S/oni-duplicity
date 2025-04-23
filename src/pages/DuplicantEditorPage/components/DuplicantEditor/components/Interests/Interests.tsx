@@ -4,7 +4,7 @@ import {
   MinionResumeBehavior,
   getHashedString,
   HashedString
-} from "oni-save-parser";
+} from "@/parser/main";
 import { findIndex, find, difference } from "lodash";
 
 import { WithTranslation, withTranslation } from "react-i18next";

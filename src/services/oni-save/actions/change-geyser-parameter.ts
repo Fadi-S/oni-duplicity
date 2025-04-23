@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
-import { GeyserBehavior } from "oni-save-parser";
+import { GeyserBehavior } from "@/parser/main";
 
-// Should probably export this from oni-save-parser.
+// Should probably export this from @/parser/main.
 export type GeyserConfiguration = NonNullable<
   GeyserBehavior["templateData"]["configuration"]
 >;

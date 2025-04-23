@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { getBehavior } from "oni-save-parser";
+import { getBehavior } from "@/parser/main";
 
 import { OniSaveState, defaultOniSaveState, BehaviorCopyData } from "../state";
 import { isCopyBehaviorsAction } from "../actions/copy-behaviors";

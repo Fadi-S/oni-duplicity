@@ -6,7 +6,7 @@ import {
   GeyserBehavior,
   GeyserType,
   getBehavior
-} from "oni-save-parser";
+} from "@/parser/main";
 
 import mockState from "@/__mocks__/active-state";
 

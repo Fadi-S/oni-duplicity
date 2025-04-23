@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 
-import { SaveGame } from "oni-save-parser";
+import { SaveGame } from "@/parser/main";
 
 import { AppState } from "@/state";
 

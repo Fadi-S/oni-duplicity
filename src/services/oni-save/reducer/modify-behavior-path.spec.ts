@@ -1,4 +1,4 @@
-import { KPrefabIDBehavior, SaveGame, getBehavior } from "oni-save-parser";
+import { KPrefabIDBehavior, SaveGame, getBehavior } from "@/parser/main";
 
 import mockState from "@/__mocks__/active-state";
 
