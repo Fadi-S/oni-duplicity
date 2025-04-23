@@ -29,9 +29,43 @@ export const GeyserTypeNames = [
   "liquid_sulfur",
   "molten_steel",
   "molten_glass",
-  "liquid_coolant",
-  "liquid_ethanol",
+  // "liquid_coolant",
+  // "liquid_ethanol",
   "slush_salt_water"
+] as const;
+
+export const GeyserTypeInGameNames = [
+  "Cool Steam Vent",
+  "Steam Vent",
+  "Water Geyser",
+  "Cool Slush Geyser",
+  "Polluted Water Vent",
+  "Salt Water Geyser",
+  "Minor Volcano",
+  "Volcano",
+  "Carbon Dioxide Geyser",
+  "Carbon Dioxide Vent",
+  "Hydrogen Vent",
+  "Hot Polluted Oxygen Vent",
+  "Infectious Polluted Oxygen Vent",
+  "Chlorine Gas Vent",
+  "Natural Gas Vent",
+  "Copper Volcano",
+  "Iron Volcano",
+  "Gold Volcano",
+  "Aluminum Volcano",
+  "Tungsten Volcano",
+  "Niobium Volcano",
+  "NiobiumGeyser",
+  "MethaneGeyser",
+  "Cobalt Volcano",
+  "Leaky Oil Fissure",
+  "Liquid Sulfur Geyser",
+  "Steel Volcano",
+  "Glass Volcano",
+  // "liquid_coolant",
+  // "liquid_ethanol",
+  "Cool Salt Slush Geyser"
 ] as const;
 
 export type GeyserType = HashedString;

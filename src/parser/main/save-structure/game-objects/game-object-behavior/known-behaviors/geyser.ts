@@ -1,6 +1,6 @@
-import { GeyserType } from "../../../const-data/geysers/geyser-type";
+import { GeyserType } from "@/parser/main";
 
-import { GameObjectBehavior } from "../game-object-behavior";
+import { GameObjectBehavior } from "@/parser/main";
 
 import { BehaviorName } from "./types";
 
@@ -18,3 +18,12 @@ export interface GeyserBehavior extends GameObjectBehavior {
     };
   };
 }
+
+export interface GeyserName extends GameObjectBehavior {
+  name: "UserNameable";
+  templateData: {
+    savedName: string;
+  };
+}
+
+export const GeyserName: BehaviorName<GeyserName> = "UserNameable";

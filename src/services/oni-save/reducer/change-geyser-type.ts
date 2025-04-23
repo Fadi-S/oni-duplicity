@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { HashedString, GeyserBehavior, SaveGame } from "@/parser/main";
+import { HashedString, GeyserBehavior, GeyserName, SaveGame } from "@/parser/main";
 
 import { OniSaveState, defaultOniSaveState } from "../state";
 
@@ -21,17 +21,18 @@ export default function changeGeyserTypeReducer(
     return state;
   }
 
-  const { gameObjectId, geyserType } = action.payload;
+  const { gameObjectId, geyserType, geyserName } = action.payload;
 
   return tryModifySaveGame(state, saveGame =>
-    changeGeyserType(saveGame, gameObjectId, geyserType)
+    changeGeyserType(saveGame, gameObjectId, geyserType, geyserName)
   );
 }
 
 function changeGeyserType(
   saveGame: SaveGame,
   gameObjectId: number,
-  geyserType: string
+  geyserType: string,
+  geyserName: string
 ): SaveGame {
   let gameObject = requireGameObject(saveGame, gameObjectId);
 
@@ -46,6 +47,19 @@ function changeGeyserType(
         typeId: HashedString(geyserType)
       }
     })
+  );
+
+  gameObject = changeStateBehaviorData(
+      gameObject,
+      GeyserName,
+      "templateData",
+      templateData => {
+        const lastPart = templateData.savedName.split(" ").slice(-1)[0];
+        return ({
+          ...templateData,
+          savedName: geyserName + " " + lastPart,
+        });
+      }
   );
 
   saveGame = removeGameObject(saveGame, gameObjectId);

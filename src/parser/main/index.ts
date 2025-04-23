@@ -52,6 +52,7 @@ export function parseSaveGame(
     saveGameParser(parserOptions),
     interceptor
   );
+  console.log(saveGame)
   return saveGame;
 }
 
