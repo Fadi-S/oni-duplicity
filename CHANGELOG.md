@@ -1,3 +1,8 @@
+## 3.20.0
+
+- Update to add new geysers and update UI
+
+
 ## 3.19.0
 
 - Hack out nonfunctional editors that no longer apply to save version 4.31

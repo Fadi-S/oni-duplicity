@@ -21,7 +21,7 @@ const ChangelogPage: React.FC<Props> = ({ t }) => {
   const styles = useStyles();
   return (
     <PageContainer title={t("changelog.title")} back>
-      <Markdown className={styles.markdown} children={ChangelogContent} />;
+      <Markdown className="prose" children={ChangelogContent} />;
     </PageContainer>
   );
 };
