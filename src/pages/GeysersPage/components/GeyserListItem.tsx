@@ -1,5 +1,5 @@
 import * as React from "react";
-import { GeyserType } from "@/parser/main";
+import {GeyserType, GeyserTypeInGameNames} from "@/parser/main";
 import classnames from "classnames";
 
 import { WithTranslation, withTranslation } from "react-i18next";
@@ -106,14 +106,14 @@ const GeyserListItem: React.FC<Props> = ({ className, gameObjectId, t }) => {
   return (
     <Paper className={classnames(className, styles.root)}>
       <div className={styles.titleBar}>
-        <Typography variant="h6">{geyserType}</Typography>
+        <Typography variant="h6">{GeyserTypeInGameNames[geyserType ?? ""] ?? ""}</Typography>
         <div className={styles.titleControls} />
       </div>
       <Divider />
       <Select value={geyserType || ""} onChange={onGeyserTypeSelected}>
         {keysOfType(GeyserType).map(typeName => (
           <MenuItem key={typeName} value={typeName}>
-            {typeName}
+            {GeyserTypeInGameNames[typeName]}
           </MenuItem>
         ))}
       </Select>

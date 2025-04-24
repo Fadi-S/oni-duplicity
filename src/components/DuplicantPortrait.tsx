@@ -9,7 +9,7 @@ import {
   Head,
   Eyes,
   Body,
-} from "react-oni-duplicant";
+} from "@/react-oni-duplicant";
 import useBehavior from "@/services/oni-save/hooks/useBehavior";
 
 export interface DuplicantPortraitProps {

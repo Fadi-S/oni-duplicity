@@ -8,7 +8,7 @@ import {
   Head,
   Eyes,
   Body
-} from "react-oni-duplicant";
+} from "@/react-oni-duplicant";
 
 import { createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
 

@@ -10,7 +10,7 @@ export const ACTION_ONISAVE_CHANGE_GEYSER_TYPE = "oni-save/change-geyser-type";
  */
 export const changeGeyserType = (gameObjectId: number, geyserType: string) => {
   // @ts-ignore
-  const geyserName = GeyserTypeInGameNames[GeyserTypeNames.indexOf(geyserType)];
+  const geyserName = GeyserTypeInGameNames[geyserType];
 
   return ({
     type: ACTION_ONISAVE_CHANGE_GEYSER_TYPE as typeof ACTION_ONISAVE_CHANGE_GEYSER_TYPE,

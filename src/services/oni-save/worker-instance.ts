@@ -12,7 +12,7 @@ import {
   jsonToError,
 } from "./worker-messages";
 
-import SaveLoadWorker from "worker-loader!./save-serializer.worker";
+import SaveLoadWorker from "./save-serializer.worker.ts?worker";
 
 const worker = new SaveLoadWorker();
 
