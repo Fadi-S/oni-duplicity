@@ -6,6 +6,7 @@ import { WithTranslation, withTranslation } from "react-i18next";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 
 import ChangelogContent from "@changelog";
+console.log(ChangelogContent);
 
 import PageContainer from "@/components/PageContainer";
 

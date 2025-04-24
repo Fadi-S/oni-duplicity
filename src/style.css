@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /*
 This should be kept minimal and only provide globals
 or non-react component styles.
@@ -12,3 +14,4 @@ body,
   width: 100%;
   height: 100%;
 }
+

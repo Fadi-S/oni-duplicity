@@ -27,7 +27,7 @@ declare module "*?worker" {
 
 declare module "@changelog" {
   const content: string;
-  export = content;
+  export default content;
 }
 
 declare module '*.md' {

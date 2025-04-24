@@ -1,5 +1,12 @@
-export * as Hair from './Hair';
-export * as Head from './Head';
-export * as Eyes from './Eyes';
-export * as Body from './Body';
-export * as DuplicantContainer from './DuplicantContainer';
+import Hair from './Hair';
+import Head from './Head';
+import Eyes from './Eyes';
+import Body from './Body';
+import DuplicantContainer from './DuplicantContainer';
+
+export {
+    DuplicantContainer, Hair,
+    Head,
+    Eyes,
+    Body
+};
