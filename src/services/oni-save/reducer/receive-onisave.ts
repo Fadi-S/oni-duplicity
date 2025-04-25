@@ -18,7 +18,6 @@ export default function receiveOniSaveReducer(
       loadingProgressMessage: null,
       saveGame: action.payload.clearExisting ? null : state.saveGame,
       isMock: false,
-      loadingFile: state.loadingFile
     };
   }
 

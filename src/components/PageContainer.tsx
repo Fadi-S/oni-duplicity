@@ -15,6 +15,9 @@ import {useSelector} from "react-redux";
 import {hasSaveSelector} from "@/services/oni-save/selectors/save-game";
 import {dlcIdSelector} from "@/services/oni-save/selectors/dlc";
 import {Link} from "react-router-dom";
+import Button from "@/components/Button";
+import {ArrowDownTrayIcon} from "@heroicons/react/24/solid";
+import {useSaveGame} from "@/services/oni-save/hooks/useSaveGame";
 
 export interface PageContainerProps {
     title: string;
@@ -29,6 +32,8 @@ function classNames(...classes: string[]) {
 export default function PageContainer({title, back, children}: PageContainerProps) {
     const hasSave = useSelector(hasSaveSelector);
     const dlcId = useSelector(dlcIdSelector);
+
+    const {disabled, onSave} = useSaveGame();
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
     return (
@@ -151,13 +156,16 @@ export default function PageContainer({title, back, children}: PageContainerProp
 
                         <div aria-hidden="true" className="h-6 w-px bg-gray-900/10 lg:hidden"/>
 
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-between w-full">
                             <h2 className="text-xl font-medium">{title}</h2>
+                            <Button disabled={disabled} onClick={onSave} icon={ArrowDownTrayIcon}>
+                                Save
+                            </Button>
                         </div>
                     </div>
 
                     <main className="py-10">
-                        <div className="px-4 sm:px-6 lg:px-8">
+                    <div className="px-4 sm:px-6 lg:px-8">
                             {children}
                         </div>
                     </main>

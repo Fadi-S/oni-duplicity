@@ -15,6 +15,11 @@ export default function loadExampleSaveReducer(
 
   return {
     ...state,
-    loadingFile: file,
+    loadingFile: {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        lastModified: file.lastModified,
+    },
   };
 }
