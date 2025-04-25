@@ -1,19 +1,24 @@
-import * as React from "react";
-
-import MenuItem from "@material-ui/core/MenuItem";
+import React, { useCallback } from 'react';
 
 export interface CloneMenuItemProps {
   onCloneDuplicant(): void;
   onClick(): void;
 }
 
-type Props = CloneMenuItemProps;
-const CloneMenuItem: React.FC<Props> = ({ onCloneDuplicant, onClick }) => {
-  const onMenuItemClick = React.useCallback(() => {
+const CloneMenuItem = ({ onCloneDuplicant, onClick }: CloneMenuItemProps) => {
+  const handleClick = useCallback(() => {
     onCloneDuplicant();
     onClick();
-  }, []);
-  return <MenuItem onClick={onMenuItemClick}>Clone</MenuItem>;
+  }, [onCloneDuplicant, onClick]);
+
+  return (
+      <button
+          onClick={handleClick}
+          className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+      >
+        Clone
+      </button>
+  );
 };
 
 export default CloneMenuItem;

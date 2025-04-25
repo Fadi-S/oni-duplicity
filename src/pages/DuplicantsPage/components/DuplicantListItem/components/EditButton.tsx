@@ -1,10 +1,9 @@
 import * as React from "react";
 
-import EditIcon from "@material-ui/icons/Edit";
-
 import { WithTranslation, withTranslation } from "react-i18next";
 
-import ButtonLink from "@/components/ButtonLink";
+import {PencilIcon} from "@heroicons/react/24/solid";
+import {Link} from "react-router-dom";
 
 export interface EditButtonProps {
   className?: string;
@@ -12,13 +11,12 @@ export interface EditButtonProps {
 }
 type Props = EditButtonProps & WithTranslation;
 const EditButton: React.FC<Props> = ({ className, gameObjectId, t }) => (
-  <ButtonLink
+  <Link
     className={className}
     to={`/duplicants/${gameObjectId}`}
-    size="small"
-    title={t("duplicant.verbs.edit_titlecase")}
   >
-    <EditIcon />
-  </ButtonLink>
+    {t("duplicant.verbs.edit_titlecase")}
+    <PencilIcon className="size-6" />
+  </Link>
 );
 export default withTranslation()(EditButton);

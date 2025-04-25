@@ -1,9 +1,6 @@
 import * as React from "react";
 import { SaveGame } from "@/parser/main";
 
-import Typography from "@material-ui/core/Typography";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-
 import { getSegmentName } from "../../editor-data";
 
 export interface BreadcrumbPathProps {
@@ -18,16 +15,16 @@ const BreadcrumbPath: React.FC<BreadcrumbPathProps> = ({
   onChangePath
 }) => {
   return (
-    <Breadcrumbs>
+    <div>
       {path.map((_, i) => {
         const segmentPath = path.slice(0, i + 1);
         return (
-          <Typography key={i} color="inherit" onClick={() => onChangePath(segmentPath)}>
+          <div key={i} color="inherit" onClick={() => onChangePath(segmentPath)}>
             {getSegmentName(saveGame, segmentPath)}
-          </Typography>
+          </div>
         );
       })}
-    </Breadcrumbs>
+    </div>
   );
 };
 

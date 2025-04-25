@@ -1,16 +1,5 @@
-import * as React from "react";
-
-import classnames from "classnames";
-
-import {
-  DuplicantContainer,
-  Hair,
-  Head,
-  Eyes,
-  Body
-} from "@/react-oni-duplicant";
-
-import { createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
+import { DuplicantContainer, Hair, Head, Eyes, Body } from "@/react-oni-duplicant";
+import React from "react";
 
 export interface PortraitProps {
   className?: string;
@@ -19,66 +8,31 @@ export interface PortraitProps {
   headOrdinal: number;
   eyesOrdinal: number;
   bodyOrdinal: number;
-  onClick?(e: React.MouseEvent<HTMLDivElement>): void;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const styles = createStyles({
-  portraitContainer: {
-    position: "relative",
-    width: 110,
-    height: 140
-  },
-  portrait: {
-    position: "absolute",
-    top: 85,
-    left: 56,
-    width: 250,
-    height: 250,
-    transform: "scale(.4)",
-    transformOrigin: "top left"
-  },
-  clickable: {
-    cursor: "pointer"
-  }
-});
-
-type Props = PortraitProps & WithStyles<typeof styles>;
-
-const Portrait: React.FC<Props> = ({
-  className,
-  classes,
-  hairOrdinal,
-  headOrdinal,
-  eyesOrdinal,
-  bodyOrdinal,
-  clickable,
-  onClick
-}) => (
-  <div
-    className={classnames(className, classes.portraitContainer)}
-    onClick={onClick}
-  >
-    <div className={classes.portrait}>
-      <DuplicantContainer>
-        <Body
-          className={classnames(clickable && classes.clickable)}
-          ordinal={bodyOrdinal}
-        />
-        <Head
-          className={classnames(clickable && classes.clickable)}
-          ordinal={headOrdinal}
-        />
-        <Eyes
-          className={classnames(clickable && classes.clickable)}
-          ordinal={eyesOrdinal}
-        />
-        <Hair
-          className={classnames(clickable && classes.clickable)}
-          ordinal={hairOrdinal}
-        />
-      </DuplicantContainer>
+const Portrait = ({
+                    className,
+                    hairOrdinal,
+                    headOrdinal,
+                    eyesOrdinal,
+                    bodyOrdinal,
+                    clickable,
+                    onClick
+                  }: PortraitProps) => (
+    <div
+        className={`relative w-[110px] h-[140px] ${className}`}
+        onClick={onClick}
+    >
+      <div className="absolute top-[85px] left-[56px] w-[250px] h-[250px] scale-[0.4] origin-top-left">
+        <DuplicantContainer>
+          <Body className={clickable ? "cursor-pointer" : ""} ordinal={bodyOrdinal} />
+          <Head className={clickable ? "cursor-pointer" : ""} ordinal={headOrdinal} />
+          <Eyes className={clickable ? "cursor-pointer" : ""} ordinal={eyesOrdinal} />
+          <Hair className={clickable ? "cursor-pointer" : ""} ordinal={hairOrdinal} />
+        </DuplicantContainer>
+      </div>
     </div>
-  </div>
 );
 
-export default withStyles(styles)(Portrait);
+export default Portrait;

@@ -1,55 +1,39 @@
-import {
-  compose,
-  createStore as createReduxStore,
-  applyMiddleware
-} from "redux";
+import { configureStore } from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
 
-import createSagaMiddleware from "redux-saga";
+import reducer from './reducer';
+import saga from './saga';
+import { initialize } from '@/actions/initialize';
+import { defaultAppState } from '@/state';
+import { loadPersistedState, savePersistedState } from './persist';
 
-import { routerMiddleware } from "connected-react-router";
+// import {
+//     actionSanitizer,
+//     stateSanitizer,
+//     actionsBlacklist,
+// } from './devtool-sanitizer';
 
-import history from "@/history";
-import { defaultAppState } from "@/state";
-import { initialize } from "@/actions/initialize";
+const sagaMiddleware = createSagaMiddleware();
 
-import reducer from "./reducer";
-import saga from "./saga";
+const initialState = loadPersistedState(defaultAppState);
 
-import { loadPersistedState, savePersistedState } from "./persist";
-
-import {
-  actionSanitizer,
-  stateSanitizer,
-  actionsBlacklist
-} from "./devtool-sanitizer";
-
-function createStore() {
-  const composeEnhancers =
-    (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        actionSanitizer,
-        stateSanitizer,
-        actionsBlacklist
-      })) ||
-    compose;
-
-  const sagaMiddleware = createSagaMiddleware();
-
-  const initialState = loadPersistedState(defaultAppState);
-
-  const store = createReduxStore(
+export const store = configureStore({
     reducer,
-    initialState,
-    composeEnhancers(applyMiddleware(sagaMiddleware, routerMiddleware(history)))
-  );
+    preloadedState: initialState,
 
-  sagaMiddleware.run(saga);
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }).concat(sagaMiddleware),
 
-  store.subscribe(() => savePersistedState(store.getState()));
-  store.dispatch(initialize());
+    devTools: process.env.NODE_ENV !== 'production',
+});
 
-  return store;
-}
+sagaMiddleware.run(saga);
 
-const store = createStore();
-export default store;
+store.subscribe(() => savePersistedState(store.getState()));
+
+store.dispatch(initialize());
+
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;

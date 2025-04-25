@@ -1,65 +1,54 @@
-import * as React from "react";
-
-import { WithTranslation, withTranslation, Trans } from "react-i18next";
-
-import Chip from "@material-ui/core/Chip";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import React, { useState, useRef } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 
 export interface AddTraitButtonProps {
-  availableTraits: string[];
-  className?: string;
-  onAddTrait(trait: string): void;
+    availableTraits: string[];
+    className?: string;
+    onAddTrait(trait: string): void;
 }
 
-type Props = AddTraitButtonProps & WithTranslation;
+const AddTraitButton = ({
+                            className,
+                            availableTraits,
+                            onAddTrait
+                        }: AddTraitButtonProps) => {
+    const { t } = useTranslation();
+    const [isOpen, setIsOpen] = useState(false);
+    const buttonRef = useRef<HTMLDivElement>(null);
 
-const AddTraitButton: React.FC<Props> = ({
-  className,
-  availableTraits,
-  onAddTrait,
-  t
-}) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const chipRef = React.useRef<HTMLDivElement | null>(null);
-  return (
-    <div className={className}>
-      <div ref={chipRef}>
-        <Chip
-          color="primary"
-          label={t(`duplicant_trait.verbs.add_titlecase`)}
-          clickable
-          onClick={() => setIsOpen(true)}
-        />
-      </div>
-      <Menu
-        open={isOpen}
-        anchorEl={chipRef.current}
-        onClose={() => setIsOpen(false)}
-      >
-        {isOpen &&
-          [...availableTraits].sort().map(trait => (
-            <MenuItem
-              key={trait}
-              value={trait}
-              title={t(`oni:DUPLICANTS.TRAITS.${trait.toUpperCase()}.DESC`, {
-                defaultValue: ""
-              })}
-              onClick={() => {
-                setIsOpen(false);
-                onAddTrait(trait);
-              }}
+    return (
+        <div className={`relative ${className}`}>
+            <div
+                ref={buttonRef}
+                className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500 text-white cursor-pointer hover:bg-blue-600 transition-colors"
+                onClick={() => setIsOpen(true)}
             >
-              <Trans
-                i18nKey={`oni:DUPLICANTS.TRAITS.${trait.toUpperCase()}.NAME`}
-              >
-                {trait}
-              </Trans>
-            </MenuItem>
-          ))}
-      </Menu>
-    </div>
-  );
+                {t('duplicant_trait.verbs.add_titlecase')}
+            </div>
+
+            {isOpen && (
+                <div className="absolute z-10 mt-1 w-48 bg-white rounded-md shadow-lg">
+                    {[...availableTraits].sort().map(trait => (
+                        <div
+                            key={trait}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                            title={t(`oni:DUPLICANTS.TRAITS.${trait.toUpperCase()}.DESC`, {
+                                defaultValue: ""
+                            })}
+                            onClick={() => {
+                                setIsOpen(false);
+                                onAddTrait(trait);
+                            }}
+                        >
+                            <Trans i18nKey={`oni:DUPLICANTS.TRAITS.${trait.toUpperCase()}.NAME`}>
+                                {trait}
+                            </Trans>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
 };
 
-export default withTranslation()(AddTraitButton);
+export default AddTraitButton;

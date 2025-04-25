@@ -1,22 +1,23 @@
-import { createStructuredSelector, createSelector } from "reselect";
+import { createSelector } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 
-import { AppState } from "@/state";
-
-import { saveGameSelector } from "@/services/oni-save/selectors/save-game";
+import { saveGameSelector } from '@/services/oni-save/selectors/save-game';
 
 export interface StateProps {
   saveName: string;
   cycleCount: number;
 }
 
-const mapDispatchToProps = createStructuredSelector<AppState, StateProps>({
-  saveName: createSelector(
+// Memoized selector combining saveName and cycleCount
+const saveGameInfoSelector = createSelector(
     saveGameSelector,
-    game => (game && game.header.gameInfo.baseName) || ""
-  ),
-  cycleCount: createSelector(
-    saveGameSelector,
-    game => (game && game.header.gameInfo.numberOfCycles) || 0
-  )
-});
-export default mapDispatchToProps;
+    game => ({
+      saveName: game?.header.gameInfo.baseName ?? '',
+      cycleCount: game?.header.gameInfo.numberOfCycles ?? 0,
+    })
+);
+
+// Custom hook to retrieve save game information from the Redux store
+export function useStateProps(): StateProps {
+  return useSelector(saveGameInfoSelector);
+}

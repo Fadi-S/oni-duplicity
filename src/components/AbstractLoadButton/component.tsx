@@ -3,7 +3,7 @@ import * as React from "react";
 import useLoadFile from "@/services/oni-save/hooks/useLoadFile";
 
 export interface AbstractLoadButtonProps {
-  children(props: AbstractLoadButtonRenderProps): React.ReactChild;
+  children(props: AbstractLoadButtonRenderProps): React.ReactNode;
 }
 export interface AbstractLoadButtonRenderProps {
   disabled: boolean;

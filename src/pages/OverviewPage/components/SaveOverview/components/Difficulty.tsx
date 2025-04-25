@@ -1,55 +1,42 @@
 import * as React from "react";
 import { QualityLevelSettingValues } from "@/parser/main";
-
-import { createStyles, withStyles, WithStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-
 import useDifficulty from "@/services/oni-save/hooks/useDifficulty";
 import { keysOfType } from "@/utils";
 
-const styles = createStyles({
-  table: {
-    display: "grid",
-    gridTemplateColumns: "minmax(min-content, 200px) auto"
-  }
-});
-
 export interface DifficultyProps {
-  className?: string;
+    className?: string;
 }
 
-type Props = DifficultyProps & WithStyles<typeof styles>;
+const Difficulty: React.FC<DifficultyProps> = ({ className }) => {
+    const { difficulty, onModifyDifficulty } = useDifficulty();
 
-const Difficulty: React.FC<Props> = ({ className, classes }) => {
-  const { difficulty, onModifyDifficulty } = useDifficulty()
-  return (
-    <div className={className}>
-      <Typography variant="h6">Difficulty</Typography>
-      <Divider />
-      <div className={classes.table}>
-        {keysOfType(difficulty).map(name => (
-          <React.Fragment key={name}>
-            <Typography>{name}</Typography>
-            <Select
-              value={difficulty[name]}
-              onChange={e =>
-                onModifyDifficulty(name, e.target.value as string)
-              }
-            >
-              {QualityLevelSettingValues[name].map(value => (
-                <MenuItem key={value} value={value}>
-                  {value}
-                </MenuItem>
-              ))}
-            </Select>
-          </React.Fragment>
-        ))}
-      </div>
-    </div>
-  );
-}
+    return (
+        <div className={className}>
+            <h2 className="text-xl font-semibold mb-2">Difficulty</h2>
+            <div className="border-t border-gray-200 mb-4"></div>
 
-export default withStyles(styles)(Difficulty);
+            <div className="grid grid-cols-[minmax(min-content,200px)_auto] gap-4">
+                {keysOfType(difficulty).map(name => (
+                    <React.Fragment key={name}>
+                        <label className="flex items-center text-gray-700">
+                            {name}
+                        </label>
+                        <select
+                            value={difficulty[name]}
+                            onChange={(e) => onModifyDifficulty(name, e.target.value)}
+                            className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        >
+                            {QualityLevelSettingValues[name].map(value => (
+                                <option key={value} value={value}>
+                                    {value}
+                                </option>
+                            ))}
+                        </select>
+                    </React.Fragment>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+export default Difficulty;

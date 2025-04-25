@@ -1,49 +1,42 @@
-import * as React from "react";
-
-import MenuItem from "@material-ui/core/MenuItem";
+import React, { useRef, useCallback } from 'react';
 
 export interface ImportMenuItemProps {
-  onImportDuplicant(file: File): void;
-  onClose(): void;
+    onImportDuplicant(file: File): void;
+    onClose(): void;
 }
 
-type Props = ImportMenuItemProps;
-const ImportMenuItem: React.FC<Props> = ({ onImportDuplicant, onClose }) => {
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
+const ImportMenuItem = ({ onImportDuplicant, onClose }: ImportMenuItemProps) => {
+    const inputRef = useRef<HTMLInputElement>(null);
 
-  const onMenuItemClick = React.useCallback(() => {
-    if (inputRef.current) {
-      inputRef.current.click();
-    }
-  }, [inputRef]);
+    const onButtonClick = useCallback(() => {
+        inputRef.current?.click();
+    }, []);
 
-  const onFileChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const files = e.target.files;
-      if (!files || files.length === 0) {
-        return;
-      }
+    const onFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            onImportDuplicant(file);
+            onClose();
+        }
+    }, [onImportDuplicant, onClose]);
 
-      const file = files[0];
-
-      onImportDuplicant(file);
-      onClose();
-    },
-    [onImportDuplicant, onClose]
-  );
-
-  return (
-    <>
-      <MenuItem onClick={onMenuItemClick}>Import</MenuItem>
-      <input
-        ref={inputRef}
-        style={{ display: "none" }}
-        type="file"
-        accept=".json"
-        onChange={onFileChange}
-      />
-    </>
-  );
+    return (
+        <>
+            <button
+                onClick={onButtonClick}
+                className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+            >
+                Import
+            </button>
+            <input
+                ref={inputRef}
+                type="file"
+                accept=".json"
+                onChange={onFileChange}
+                className="hidden"
+            />
+        </>
+    );
 };
 
 export default ImportMenuItem;

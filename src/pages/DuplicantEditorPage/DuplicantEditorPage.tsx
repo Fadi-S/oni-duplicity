@@ -1,36 +1,27 @@
 import * as React from "react";
-
-import { RouteComponentProps } from "react-router";
+import { useParams } from "react-router-dom";
 
 import useGameObject from "@/services/oni-save/hooks/useGameObject";
 
 import RedirectIfNoSave from "@/components/RedirectIfNoSave";
-
 import DuplicantEditor from "./components/DuplicantEditor";
 import DuplicantNotFound from "./components/DuplicantNotFound";
 
-export interface DuplicantEditorRouteParams {
-  gameObjectId: string;
-}
+const DuplicantEditorPage: React.FC = () => {
+  const { gameObjectId } = useParams<{ gameObjectId?: string }>();
 
-export interface DuplicantEditorProps
-  extends RouteComponentProps<DuplicantEditorRouteParams> {}
+  const goid = gameObjectId ? Number(gameObjectId) : NaN;
+  const { gameObjectType } = useGameObject(goid);
 
-type Props = DuplicantEditorProps;
-const DuplicantEditorPage: React.FC<Props> = ({
-  match: {
-    params: { gameObjectId }
-  }
-}) => {
-  const { gameObjectType } = useGameObject(Number(gameObjectId));
   return (
-    <>
-      <RedirectIfNoSave />
-      {gameObjectType === "Minion" && (
-        <DuplicantEditor gameObjectId={Number(gameObjectId)} />
-      )}
-      {gameObjectType !== "Minion" && <DuplicantNotFound />}
-    </>
+      <>
+        <RedirectIfNoSave />
+        {gameObjectType === "Minion" ? (
+            <DuplicantEditor gameObjectId={goid} />
+        ) : (
+            <DuplicantNotFound />
+        )}
+      </>
   );
 };
 

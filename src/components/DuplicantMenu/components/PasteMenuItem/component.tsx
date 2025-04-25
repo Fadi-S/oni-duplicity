@@ -1,6 +1,4 @@
-import * as React from "react";
-
-import MenuItem from "@material-ui/core/MenuItem";
+import React, { useCallback } from 'react';
 
 export interface PasteMenuItemProps {
   gameObjectId: number;
@@ -9,21 +7,22 @@ export interface PasteMenuItemProps {
   onClose(): void;
 }
 
-type Props = PasteMenuItemProps;
-
-const PasteMenuItem: React.FC<Props> = ({
-  disabled,
-  onPasteBehaviors,
-  onClose
-}) => {
-  const onClick = React.useCallback(() => {
+const PasteMenuItem = ({ disabled, onPasteBehaviors, onClose }: PasteMenuItemProps) => {
+  const onClick = useCallback(() => {
     onClose();
     onPasteBehaviors();
   }, [onClose, onPasteBehaviors]);
+
   return (
-    <MenuItem disabled={disabled} onClick={onClick}>
-      Paste
-    </MenuItem>
+      <button
+          onClick={onClick}
+          disabled={disabled}
+          className={`block w-full px-4 py-2 text-left text-sm ${
+              disabled ? 'text-gray-400 cursor-not-allowed' : 'text-gray-700 hover:bg-gray-100'
+          }`}
+      >
+        Paste
+      </button>
   );
 };
 

@@ -1,4 +1,4 @@
-import createCachedSelector, { ParametricSelector } from "re-reselect";
+import { createCachedSelector, ParametricSelector } from "re-reselect";
 import { has } from "lodash";
 import { getBehavior, GameObjectBehavior, BehaviorName } from "@/parser/main";
 

@@ -1,66 +1,29 @@
-import * as React from "react";
-import {
-  MinionSkillGroupNames,
-  MinionResumeBehavior,
-  getHashedString,
-  HashedString
-} from "@/parser/main";
+import { MinionSkillGroupNames, MinionResumeBehavior, getHashedString, HashedString } from "@/parser/main";
 import { findIndex, find, difference } from "lodash";
-
-import { WithTranslation, withTranslation } from "react-i18next";
-
-import {
-  Theme,
-  createStyles,
-  withStyles,
-  WithStyles
-} from "@material-ui/core/styles";
-import Chip from "@material-ui/core/Chip";
-
+import { useTranslation } from "react-i18next";
 import useBehavior from "@/services/oni-save/hooks/useBehavior";
-
 import AddAptitudeButton from "./components/AddAptitudeButton";
+import React from "react";
 
 export interface InterestsProps {
   gameObjectId: number;
 }
 
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap"
-    },
-    chip: {
-      margin: theme.spacing(0.5)
-    }
-  });
-
-type Props = InterestsProps & WithStyles<typeof styles> & WithTranslation;
-
-const Interests: React.FC<Props> = ({ classes, gameObjectId, t }) => {
+const Interests = ({ gameObjectId }: InterestsProps) => {
+  const { t } = useTranslation();
   const { templateData: { AptitudeBySkillGroup }, onTemplateDataModify } = useBehavior(gameObjectId, MinionResumeBehavior);
 
   const availableAptitudes = MinionSkillGroupNames.filter(
-    aptitudeName =>
-      aptitudeValue(AptitudeBySkillGroup, aptitudeName) === 0
+      aptitudeName => aptitudeValue(AptitudeBySkillGroup, aptitudeName) === 0
   );
 
-  const selectedAptitudes = difference(
-    MinionSkillGroupNames,
-    availableAptitudes
-  );
+  const selectedAptitudes = difference(MinionSkillGroupNames, availableAptitudes);
 
   function removeAptitude(aptitudeName: string) {
     const hashStr = getHashedString(aptitudeName);
-    const index = findIndex(
-      AptitudeBySkillGroup,
-      x => x[0].hash === hashStr.hash
-    );
-    if (index === -1) {
-      return;
-    }
+    const index = findIndex(AptitudeBySkillGroup, x => x[0].hash === hashStr.hash);
+    if (index === -1) return;
+
     onTemplateDataModify({
       AptitudeBySkillGroup: [
         ...AptitudeBySkillGroup.slice(0, index),
@@ -71,10 +34,8 @@ const Interests: React.FC<Props> = ({ classes, gameObjectId, t }) => {
 
   function addAptitude(aptitudeName: string) {
     const hashStr = getHashedString(aptitudeName);
-    const index = findIndex(
-      AptitudeBySkillGroup,
-      x => x[0].hash === hashStr.hash
-    );
+    const index = findIndex(AptitudeBySkillGroup, x => x[0].hash === hashStr.hash);
+
     if (index === -1) {
       onTemplateDataModify({
         AptitudeBySkillGroup: [...AptitudeBySkillGroup, [hashStr, 1]]
@@ -91,36 +52,33 @@ const Interests: React.FC<Props> = ({ classes, gameObjectId, t }) => {
   }
 
   return (
-    <div className={classes.root}>
-      {selectedAptitudes.map((aptitudeName, i) => (
-        <Chip
-          key={i}
-          className={classes.chip}
-          label={t(`oni:todo-trans.aptitudes.${aptitudeName}`, {
-            defaultValue: aptitudeName
-          })}
-          onDelete={removeAptitude.bind(null, aptitudeName)}
+      <div className="flex flex-row flex-wrap">
+        {selectedAptitudes.map((aptitudeName, i) => (
+            <div key={i} className="m-1 inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-800">
+          <span className="mr-2">
+            {t(`oni:todo-trans.aptitudes.${aptitudeName}`, { defaultValue: aptitudeName })}
+          </span>
+              <button
+                  onClick={() => removeAptitude(aptitudeName)}
+                  className="text-blue-600 hover:text-blue-800"
+              >
+                ×
+              </button>
+            </div>
+        ))}
+        <AddAptitudeButton
+            className="m-1"
+            availableAptitudes={availableAptitudes}
+            onAddAptitude={addAptitude}
         />
-      ))}
-      <AddAptitudeButton
-        className={classes.chip}
-        availableAptitudes={availableAptitudes}
-        onAddAptitude={addAptitude}
-      />
-    </div>
+      </div>
   );
 };
 
-export default withStyles(styles)(withTranslation()(Interests));
+export default Interests;
 
-function aptitudeValue(
-  aptitudes: [HashedString, number][],
-  aptitudeName: string
-): number {
+function aptitudeValue(aptitudes: [HashedString, number][], aptitudeName: string): number {
   const hash = getHashedString(aptitudeName).hash;
   const aptitude = find(aptitudes, x => x[0].hash === hash);
-  if (!aptitude) {
-    return 0;
-  }
-  return aptitude[1];
+  return aptitude ? aptitude[1] : 0;
 }

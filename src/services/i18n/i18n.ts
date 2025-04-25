@@ -19,7 +19,7 @@ import zhOni from '@/translations/zh/oni.json';
 
 i18n
     .use(initReactI18next)
-    .init(() => ({
+    .init({
         fallbackLng: 'en',
 
         ns: ['common', 'oni'],
@@ -35,7 +35,7 @@ i18n
 
         debug: !isProd,
         interpolation: {escapeValue: false},
-        react: {wait: true},
-    }));
+        react: {},
+    }, () => null);
 
 export default i18n;

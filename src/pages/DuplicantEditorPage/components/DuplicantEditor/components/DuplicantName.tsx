@@ -1,18 +1,14 @@
-import * as React from "react";
 import { MinionIdentityBehavior } from "@/parser/main";
-
-import Typography from "@material-ui/core/Typography";
-
 import useBehavior from "@/services/oni-save/hooks/useBehavior";
+import React from "react";
 
 export interface DuplicantNameProps {
   gameObjectId: number;
 }
 
-const DuplicantName: React.FC<DuplicantNameProps> = ({ gameObjectId }) => {
+const DuplicantName = ({ gameObjectId }: DuplicantNameProps) => {
   const { templateData: { name } } = useBehavior(gameObjectId, MinionIdentityBehavior);
-  return (
-    <Typography variant="h5">{name}</Typography>
-  );
-}
+  return <h2 className="text-xl font-medium">{name}</h2>;
+};
+
 export default DuplicantName;

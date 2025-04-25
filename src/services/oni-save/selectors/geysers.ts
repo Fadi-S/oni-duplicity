@@ -1,4 +1,4 @@
-import createCachedSelector from "re-reselect";
+import {createCachedSelector} from "re-reselect";
 import { gameObjectsByIdSelector } from "./game-objects";
 import { getBehavior, GeyserBehavior } from "@/parser/main";
 

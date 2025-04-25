@@ -2,37 +2,11 @@ import * as React from "react";
 
 import { Trans, WithTranslation, withTranslation } from "react-i18next";
 
-import {
-  Theme,
-  createStyles,
-  withStyles,
-  WithStyles,
-} from "@material-ui/core/styles";
-
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-
 import { OSType } from "@/runtime-env";
 
 import PageContainer from "@/components/PageContainer";
 import LoadButton from "@/components/LoadButton";
-import LoadExampleButton from "@/components/LoadExampleButton";
-
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      padding: theme.spacing(2),
-      maxWidth: "640px",
-    },
-    paper: {
-      padding: theme.spacing(2),
-      margin: theme.spacing(2),
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    },
-  });
+import useLoadFile from "@/services/oni-save/hooks/useLoadFile";
 
 const SaveFilePaths: Record<OSType, string | null> = {
   windows: "Documents/Klei/OxygenNotIncluded/save_files",
@@ -42,31 +16,31 @@ const SaveFilePaths: Record<OSType, string | null> = {
 };
 const saveFilePath = SaveFilePaths[OSType];
 
-type Props = WithStyles<typeof styles> & WithTranslation;
+type Props = WithTranslation;
 
-const NoSave: React.FC<Props> = ({ classes, t }) => (
-  <PageContainer title={t("overview-page.no-save.title")}>
-    <div className={classes.root}>
-      <div>
-        <Typography variant="h5">
-          <Trans i18nKey="overview-page.no-save.prompt">
-            Load a save using the controls on the upper left.
-          </Trans>
-        </Typography>
-      </div>
-      {SaveFilePaths[OSType] && (
-        <Typography component="div" variant="body1">
-          <Trans i18nKey="overview-page.no-save.save-location">
-            Save files can be found at <code>{{ path: saveFilePath }}</code>
-          </Trans>
-        </Typography>
-      )}
-      <LoadButton />
-      {/* <Typography component="div">
-        Have no save file? Want to preview the editor?
-      </Typography>
-      <LoadExampleButton /> */}
-    </div>
-  </PageContainer>
-);
-export default withStyles(styles)(withTranslation()(NoSave));
+const NoSave: React.FC<Props> = ({ t }) => {
+  return (
+      <PageContainer title={t("overview-page.no-save.title")}>
+        <div className="flex flex-col space-y-4 items-start">
+          <div>
+            <div className="text-2xl">
+              <Trans i18nKey="overview-page.no-save.prompt">
+                Load a save using the controls on the upper left.
+              </Trans>
+            </div>
+          </div>
+          {SaveFilePaths[OSType] && (
+              <div className="">
+                <Trans className="prose" i18nKey="overview-page.no-save.save-location">
+                  {/*@ts-ignore*/}
+                  Save files can be found at <code>{{path: saveFilePath}}</code>
+                </Trans>
+              </div>
+          )}
+
+          <LoadButton />
+        </div>
+      </PageContainer>
+  );
+};
+export default withTranslation()(NoSave);

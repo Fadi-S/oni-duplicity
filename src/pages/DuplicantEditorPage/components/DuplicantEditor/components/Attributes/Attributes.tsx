@@ -1,123 +1,74 @@
-import * as React from "react";
 import { AIAttributeLevelsBehavior, AttributeLevel } from "@/parser/main";
-import { findIndex, merge } from "lodash";
-
-import { Trans } from "react-i18next";
-
-import {
-  Theme,
-  createStyles,
-  withStyles,
-  WithStyles
-} from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-
+import { Trans, useTranslation } from "react-i18next";
 import useBehavior from "@/services/oni-save/hooks/useBehavior";
-
 import AttributeName from "./components/AttributeName";
 import AttributeField from "./components/AttributeField";
+import React from "react";
 
 const PRIMARY_ATTRIBUTES = [
-  "Athletics",
-  "Cooking",
-  "Digging",
-  "Caring",
-  "Ranching",
-  "Machinery",
-  "Construction",
-  "Art",
-  "Botanist",
-  "Learning",
-  "Strength"
+    "Athletics",
+    "Cooking",
+    "Digging",
+    "Caring",
+    "Ranching",
+    "Machinery",
+    "Construction",
+    "Art",
+    "Botanist",
+    "Learning",
+    "Strength"
 ];
 
 export interface AttributesProps {
-  gameObjectId: number;
+    gameObjectId: number;
 }
 
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      flexDirection: "column",
-      width: "100%",
-      height: "100%"
-    },
-    header: {
-      marginTop: theme.spacing(),
-      marginLeft: theme.spacing()
-    },
-    divider: {
-      marginTop: theme.spacing(),
-      marginBottom: theme.spacing()
-    },
-    attributeList: {
-      display: "flex",
-      flexDirection: "column",
-      flexWrap: "wrap",
-      height: theme.spacing(20),
-      padding: theme.spacing()
-    },
-    attributeItem: {
-      margin: theme.spacing(0.5),
-      display: "flex",
-      flexDirection: "row"
-    },
-    attributeInput: {
-      width: 50,
-      marginRight: theme.spacing()
-    }
-  });
+const Attributes = ({ gameObjectId }: AttributesProps) => {
+    const { t } = useTranslation();
+    const { templateData: { saveLoadLevels } } = useBehavior(gameObjectId, AIAttributeLevelsBehavior);
 
-type Props = AttributesProps & WithStyles<typeof styles>;
+    return (
+        <div className="flex flex-col w-full h-full">
+            <h3 className="text-lg font-semibold mt-2 ml-2">
+                <Trans i18nKey="duplicant_attribute.primary_titlecase">Primary</Trans>
+            </h3>
+            <div className="border-t border-gray-200 my-2" />
+            <div className="flex flex-col flex-wrap h-40 p-2">
+                {PRIMARY_ATTRIBUTES.map(attributeId => (
+                    <div key={attributeId} className="flex flex-row m-1">
+                        <AttributeField
+                            className="w-12 mr-2"
+                            gameObjectId={gameObjectId}
+                            attributeId={attributeId}
+                        />
+                        <AttributeName attributeId={attributeId} />
+                    </div>
+                ))}
+            </div>
+            <h3 className="text-lg font-semibold mt-2 ml-2">
+                <Trans i18nKey="duplicant_attribute.secondary_titlecase">Secondary</Trans>
+            </h3>
+            <div className="border-t border-gray-200 my-2" />
+            <div className="flex flex-col flex-wrap h-40 p-2">
+                {nonPrimaryAttributeIds(saveLoadLevels).map(attributeId => (
+                    <div key={attributeId} className="flex flex-row m-1">
+                        <AttributeField
+                            className="w-12 mr-2"
+                            gameObjectId={gameObjectId}
+                            attributeId={attributeId}
+                        />
+                        <AttributeName attributeId={attributeId} />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
 
-const Attributes: React.FC<Props> = ({ classes, gameObjectId }) => {
-  const { templateData: { saveLoadLevels } } = useBehavior(gameObjectId, AIAttributeLevelsBehavior);
-  return (
-    <div className={classes.root}>
-      <Typography className={classes.header} variant="h6">
-        <Trans i18nKey="duplicant_attribute.primary_titlecase">Primary</Trans>
-      </Typography>
-      <Divider className={classes.divider} />
-      <div className={classes.attributeList}>
-        {PRIMARY_ATTRIBUTES.map(attributeId => (
-          <div key={attributeId} className={classes.attributeItem}>
-            <AttributeField
-              className={classes.attributeInput}
-              gameObjectId={gameObjectId}
-              attributeId={attributeId}
-            />
-            <AttributeName attributeId={attributeId} />
-          </div>
-        ))}
-      </div>
-      <Typography className={classes.header} variant="h6">
-        <Trans i18nKey="duplicant_attribute.secondary_titlecase">
-          Secondary
-          </Trans>
-      </Typography>
-      <Divider className={classes.divider} />
-      <div className={classes.attributeList}>
-        {nonPrimaryAttributeIds(saveLoadLevels).map(attributeId => (
-          <div key={attributeId} className={classes.attributeItem}>
-            <AttributeField
-              className={classes.attributeInput}
-              gameObjectId={gameObjectId}
-              attributeId={attributeId}
-            />
-            <AttributeName attributeId={attributeId} />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export default withStyles(styles)(Attributes);
+export default Attributes;
 
 function nonPrimaryAttributeIds(attributes: AttributeLevel[]): string[] {
-  return attributes
-    .map(x => x.attributeId)
-    .filter(x => PRIMARY_ATTRIBUTES.indexOf(x) === -1);
+    return attributes
+        .map(x => x.attributeId)
+        .filter(x => PRIMARY_ATTRIBUTES.indexOf(x) === -1);
 }

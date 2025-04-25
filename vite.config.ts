@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import * as path from 'path'
+import string from 'vite-plugin-string'
+// @ts-ignore
 import tailwindcss from '@tailwindcss/vite'
 
 
@@ -11,6 +13,9 @@ export default defineConfig({
     plugins: [
         react(),
         tailwindcss(),
+        string({
+            include: ['**/*.md'], // Include .md files as raw strings
+        }),
     ],
 
     resolve: {
@@ -20,8 +25,6 @@ export default defineConfig({
         },
         extensions: ['.js', '.ts', '.tsx', '.json'],
     },
-
-    assetsInclude: ['**/*.md'],
 
     define: {
         // preserve process.env.NODE_ENV if you use it in code
