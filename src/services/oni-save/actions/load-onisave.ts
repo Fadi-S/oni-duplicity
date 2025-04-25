@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 
 export const ACTION_ONISAVE_LOAD = "oni-save/load";
 export const loadOniSave = (file: File, bypassVersionCheck = false) => ({
@@ -7,7 +7,7 @@ export const loadOniSave = (file: File, bypassVersionCheck = false) => ({
 });
 export type LoadOniSaveAction = ReturnType<typeof loadOniSave>;
 export function isLoadOniSaveAction(
-  action: AnyAction
+  action: Action
 ): action is LoadOniSaveAction {
   return action.type === ACTION_ONISAVE_LOAD;
 }

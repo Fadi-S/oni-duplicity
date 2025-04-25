@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 import { GeyserBehavior } from "@/parser/main";
 
 // Should probably export this from @/parser/main.
@@ -26,7 +26,7 @@ export type ChangeGeyserParameterAction = ReturnType<
   typeof changeGeyserParameter
 >;
 export function isChangeGeyserParameterAction(
-  action: AnyAction
+  action: Action
 ): action is ChangeGeyserParameterAction {
   return action.type === ACTION_ONISAVE_CHANGE_GEYSER_PARAMETER;
 }

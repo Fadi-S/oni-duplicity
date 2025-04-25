@@ -6,7 +6,6 @@ import { OSType } from "@/runtime-env";
 
 import PageContainer from "@/components/PageContainer";
 import LoadButton from "@/components/LoadButton";
-import useLoadFile from "@/services/oni-save/hooks/useLoadFile";
 
 const SaveFilePaths: Record<OSType, string | null> = {
   windows: "Documents/Klei/OxygenNotIncluded/save_files",

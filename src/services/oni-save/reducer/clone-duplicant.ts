@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 import {
   KPrefabIDBehavior,
   GameObject,
@@ -21,7 +21,7 @@ import {
 
 export default function cloneDuplicantReducer(
   state: OniSaveState = defaultOniSaveState,
-  action: AnyAction
+  action: Action
 ): OniSaveState {
   if (!isCloneDuplicantAction(action)) {
     return state;

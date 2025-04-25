@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 
 export enum BehaviorDataTarget {
   Template = "templateData",
@@ -19,7 +19,7 @@ export const modifyBehavior = (
 export type ModifyBehaviorAction = ReturnType<typeof modifyBehavior>;
 
 export function isModifyBehaviorAction(
-  action: AnyAction
+  action: Action
 ): action is ModifyBehaviorAction {
   return action.type === ACTION_ONISAVE_MODIFY_BEHAVIOR;
 }

@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 import { GameObjectBehavior, BehaviorName } from "@/parser/main";
 
 export const ACTION_MODIFY_BEHAVIOR_PATH = "oni-save/modify-behavior-path";
@@ -63,7 +63,7 @@ export interface ModifyBehaviorPathAction {
   };
 }
 export function isModifyBehaviorPathAction(
-  action: AnyAction
+  action: Action
 ): action is ModifyBehaviorPathAction {
   return action.type === ACTION_MODIFY_BEHAVIOR_PATH;
 }

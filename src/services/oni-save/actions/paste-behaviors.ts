@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 
 export const ACTION_ONISAVE_PASTE_BEHAVIORS = "oni-save/paste-behaviors";
 export const pasteBehaviors = (gameObjectId: number, behaviors?: string[]) => ({
@@ -8,7 +8,7 @@ export const pasteBehaviors = (gameObjectId: number, behaviors?: string[]) => ({
 export type PasteBehaviorAction = ReturnType<typeof pasteBehaviors>;
 
 export function isPasteBehaviorsAction(
-  action: AnyAction
+  action: Action
 ): action is PasteBehaviorAction {
   return action.type === ACTION_ONISAVE_PASTE_BEHAVIORS;
 }

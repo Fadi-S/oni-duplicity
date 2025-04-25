@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 import { SimHashNames, GameObjectGroup, SimHashName } from "@/parser/main";
 
 import { defaultOniSaveState, OniSaveState } from "../state";
@@ -6,7 +6,7 @@ import { isDeleteLooseMaterialAction } from "../actions/delete-loose-material";
 
 export default function deleteLooseMaterialReducer(
   state: OniSaveState = defaultOniSaveState,
-  action: AnyAction
+  action: Action
 ): OniSaveState {
   if (!isDeleteLooseMaterialAction(action)) {
     return state;

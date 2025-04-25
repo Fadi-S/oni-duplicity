@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 import { OniSaveState, defaultOniSaveState } from "../state";
 
 import { isChangeGeyserParameterAction } from "../actions/change-geyser-parameter";
@@ -13,7 +13,7 @@ import { SaveGame, GeyserBehavior } from "@/parser/main";
 
 export default function changeGeyserParameterReducer(
   state: OniSaveState = defaultOniSaveState,
-  action: AnyAction
+  action: Action
 ): OniSaveState {
   if (!isChangeGeyserParameterAction(action)) {
     return state;
