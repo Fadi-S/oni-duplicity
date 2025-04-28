@@ -10,9 +10,15 @@ export interface NavItem {
 
 const NavItems: NavItem[] = [
   {
-    name: "Overview",
+    name: "Home",
     path: "/",
+    i18nKey: "home-page.title",
+  },
+  {
+    name: "Overview",
+    path: "/overview",
     i18nKey: "overview-page.title",
+    saveRequired: true,
   },
   {
     name: "Duplicants",

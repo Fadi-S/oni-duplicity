@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import classnames from 'classnames';
 import { GeyserType, GeyserTypeInGameNames } from '@/parser/main';
@@ -97,7 +96,7 @@ const SliderSection = ({ label, value, onChange }: {
                 onChange={(e) => onChange(Number(e.target.value))}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
             />
-            <span className="text-sm text-gray-600 w-12">{value}%</span>
+            <span className="text-sm text-gray-600 w-12">{Math.round(value * 100) / 100}%</span>
         </div>
     </div>
 );

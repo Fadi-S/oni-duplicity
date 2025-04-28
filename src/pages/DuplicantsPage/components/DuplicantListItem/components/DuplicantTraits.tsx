@@ -15,7 +15,7 @@ type Props = DuplicantTraitsProps  & WithTranslation;
 const DuplicantTraits: React.FC<Props> = ({ gameObjectId, t }) => {
   const { templateData } = useBehavior(gameObjectId, AITraitsBehavior);
   return (
-    <div className="">
+    <div className="flex flex-col">
       {(templateData || { TraitIds: [] }).TraitIds.map(trait => (
         <div
           key={trait}

@@ -1,7 +1,8 @@
-import { AccessorizerBehavior, getAccessoryOfType } from "@/parser/main";
-import { DuplicantContainer, Hair, Head, Eyes } from "@/react-oni-duplicant";
+import {AccessorizerBehavior, getAccessoryOfType} from "@/parser/main";
+import {Eyes, Hair, Head} from "@/react-oni-duplicant";
 import useBehavior from "@/services/oni-save/hooks/useBehavior";
 import React from "react";
+import {DuplicantDirection} from "@/react-oni-duplicant/dts/types";
 
 export interface DuplicantPortraitProps {
   gameObjectId: number;
@@ -19,34 +20,25 @@ const DuplicantPortrait = ({ gameObjectId, scale }: DuplicantPortraitProps) => {
           className="relative"
           style={{ width: 240 * scale, height: 270 * scale }}
       >
-        <div
-            className="absolute"
-            style={{
-              left: 126 * scale,
-              top: 150 * scale,
-              width: 0,
-              height: 0,
-              transform: `scale(${scale})`,
-              transformOrigin: "top left",
-            }}
-        >
-          <DuplicantContainer>
+        <div>
             <Head
                 ordinal={ordinalFromAccessory(
                     getAccessoryOfType(templateData.accessories, "headshape")!.guid.Guid
                 )}
+                className="absolute"
             />
             <Eyes
                 ordinal={ordinalFromAccessory(
                     getAccessoryOfType(templateData.accessories, "eyes")!.guid.Guid
                 )}
+                className="absolute top-6 left-6"
             />
             <Hair
                 ordinal={ordinalFromAccessory(
                     getAccessoryOfType(templateData.accessories, "hair")!.guid.Guid
                 )}
+                className="absolute -top-5 -left-6"
             />
-          </DuplicantContainer>
         </div>
       </div>
   );

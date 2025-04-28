@@ -18,6 +18,7 @@ import {Link} from "react-router-dom";
 import Button from "@/components/Button";
 import {ArrowDownTrayIcon} from "@heroicons/react/24/solid";
 import {useSaveGame} from "@/services/oni-save/hooks/useSaveGame";
+import Logo from "@/components/Logo";
 
 export interface PageContainerProps {
     title: string;
@@ -63,11 +64,7 @@ export default function PageContainer({title, back, children}: PageContainerProp
                             <div
                                 className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
                                 <div className="flex h-16 shrink-0 items-center">
-                                    <img
-                                        alt="Duplicity"
-                                        src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                                        className="h-8 w-auto"
-                                    />
+                                    <Logo className="h-8 w-auto"/>
                                 </div>
                                 <nav className="flex flex-1 flex-col">
                                     <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -106,11 +103,7 @@ export default function PageContainer({title, back, children}: PageContainerProp
                 <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
                         <div className="flex h-16 shrink-0 items-center">
-                            <img
-                                alt="Your Company"
-                                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                                className="h-8 w-auto"
-                            />
+                            <Logo className="h-8 w-auto"/>
                         </div>
                         <nav className="flex flex-1 flex-col">
                             <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -158,14 +151,16 @@ export default function PageContainer({title, back, children}: PageContainerProp
 
                         <div className="flex items-center justify-between w-full">
                             <h2 className="text-xl font-medium">{title}</h2>
-                            <Button disabled={disabled} onClick={onSave} icon={ArrowDownTrayIcon}>
-                                Save
-                            </Button>
+                            {!disabled && (
+                                <Button disabled={disabled} onClick={onSave} icon={ArrowDownTrayIcon}>
+                                    Save
+                                </Button>
+                            )}
                         </div>
                     </div>
 
                     <main className="py-10">
-                    <div className="px-4 sm:px-6 lg:px-8">
+                        <div className="px-4 sm:px-6 lg:px-8">
                             {children}
                         </div>
                     </main>

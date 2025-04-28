@@ -1,10 +1,15 @@
 import { Action } from "redux";
+import {FileMeta} from "@/services/oni-save/state";
 
 export const ACTION_ONISAVE_LOAD = "oni-save/load";
-export const loadOniSave = (file: File, bypassVersionCheck = false) => ({
-  type: ACTION_ONISAVE_LOAD as typeof ACTION_ONISAVE_LOAD,
-  payload: { file, bypassVersionCheck },
-});
+export function loadOniSave(data: number[], file: FileMeta, bypassVersionCheck = false) {
+    return ({
+        type: ACTION_ONISAVE_LOAD as typeof ACTION_ONISAVE_LOAD,
+        payload: {
+            data, bypassVersionCheck, file
+        },
+    });
+};
 export type LoadOniSaveAction = ReturnType<typeof loadOniSave>;
 export function isLoadOniSaveAction(
   action: Action

@@ -16,18 +16,17 @@ const GeysersPage: React.FC<Props> = ({ t }) => {
     GeyserTypeNames.map(x => `GeyserGeneric_${x}`)
   );
   return (
-    <PageContainer title={t("geyser.noun_titlecase_plural")}>
-      <RedirectIfNoSave />
-      <div className="">
+    <div title={t("geyser.noun_titlecase_plural")}>
+      <div className="grid grid-cols-12 gap-6">
         {gameObjectIds.map(gameObjectId => (
           <GeyserListItem
             key={gameObjectId}
-            className=""
+            className="col-span-12 md:col-span-6 lg:col-span-4"
             gameObjectId={gameObjectId}
           />
         ))}
       </div>
-    </PageContainer>
+    </div>
   );
 };
 

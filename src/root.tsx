@@ -4,13 +4,16 @@ import Routes from "@/routes";
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import {store} from "@/store/store";
+import PageContainer from "@/components/PageContainer";
 
 const Root: React.FC = () => (
     <I18NProvider>
         <Provider store={store}>
-            <BrowserRouter>
-                <Routes />
-            </BrowserRouter>
+                <BrowserRouter>
+                    <PageContainer title="Duplicity">
+                        <Routes />
+                    </PageContainer>
+                </BrowserRouter>
         </Provider>
     </I18NProvider>
 );

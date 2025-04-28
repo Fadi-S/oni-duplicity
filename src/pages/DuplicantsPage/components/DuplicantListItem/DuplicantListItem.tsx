@@ -3,22 +3,26 @@ import DuplicantPortrait from "@/components/DuplicantPortrait";
 import DuplicantName from "./components/DuplicantName";
 import DuplicantTraits from "./components/DuplicantTraits";
 import DuplicantAttributes from "./components/DuplicantAttributes";
-import EditButton from "./components/EditButton";
 import React from "react";
+import MyLink from "@/components/MyLink";
+import { WithTranslation, withTranslation } from "react-i18next";
+import {PencilIcon} from "@heroicons/react/24/solid";
 
 export interface DuplicantListItemProps {
   className?: string;
   gameObjectId: number;
 }
 
-const DuplicantListItem = ({ className, gameObjectId }: DuplicantListItemProps) => {
+const DuplicantListItem = ({ className, gameObjectId, t }: DuplicantListItemProps & WithTranslation) => {
   return (
-      <div className={`flex flex-col p-4 rounded-lg shadow-md bg-white ${className}`}>
+      <div className={`col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-4 flex flex-col p-4 rounded-lg shadow-md bg-white ${className}`}>
         {/* Header Row */}
         <div className="flex flex-row items-center mb-2">
           <DuplicantName gameObjectId={gameObjectId} />
           <div className="flex flex-row ml-auto gap-2">
-            <EditButton gameObjectId={gameObjectId} className="ml-auto" />
+              <MyLink icon={PencilIcon} to={`/duplicants/${gameObjectId}`}>
+                  {t("duplicant.verbs.edit_titlecase")}
+              </MyLink>
             <DuplicantMenu gameObjectId={gameObjectId} />
           </div>
         </div>
@@ -44,4 +48,4 @@ const DuplicantListItem = ({ className, gameObjectId }: DuplicantListItemProps) 
   );
 };
 
-export default DuplicantListItem;
+export default withTranslation()(DuplicantListItem);

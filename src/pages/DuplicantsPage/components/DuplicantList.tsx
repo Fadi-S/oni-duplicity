@@ -10,7 +10,7 @@ const DuplicantList = ({ className }: DuplicantListProps) => {
   const gameObjectIds = useGameObjects("Minion");
 
   return (
-      <div className={`flex flex-row flex-wrap m-4 gap-2 ${className}`}>
+      <div className={`grid grid-cols-12 m-4 gap-2 ${className}`}>
         {gameObjectIds.map(id => (
             <DuplicantListItem
                 key={id}

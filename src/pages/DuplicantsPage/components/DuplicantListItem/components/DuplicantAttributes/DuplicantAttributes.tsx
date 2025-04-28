@@ -14,7 +14,7 @@ const DuplicantAttributes: React.FC<Props> = ({
   className,
   gameObjectId
 }) => (
-  <div className={classnames(className)}>
+  <div className={classnames(className, "grid grid-cols-2 gap-6")}>
     <Attribute gameObjectId={gameObjectId} attributeId="Athletics" />
     <Attribute gameObjectId={gameObjectId} attributeId="Cooking" />
     <Attribute gameObjectId={gameObjectId} attributeId="Digging" />

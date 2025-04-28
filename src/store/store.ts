@@ -23,7 +23,9 @@ export const store = configureStore({
 
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-
+            immutableCheck: false,
+            serializableCheck: false,
+            actionCreatorCheck: false,
         }).concat(sagaMiddleware),
 
     devTools: process.env.NODE_ENV !== 'production',

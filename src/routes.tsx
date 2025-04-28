@@ -11,10 +11,13 @@ import SettingsPage from "@/pages/SettingsPage";
 import ChangelogPage from "@/pages/ChangelogPage";
 import PlanetsPage from "@/pages/PlanetsPage";
 import MaterialsPage from "@/pages/MaterialsPage";
+import HomePage from "@/pages/HomePage";
+import NotFoundPage from "@/pages/404";
 
 const Routes: React.FC = () => (
     <RouterRoutes>
-        <Route path="/" element={<OverviewPage />}/>
+        <Route path="/" element={<HomePage />}/>
+        <Route path="/overview" element={<OverviewPage />}/>
         <Route path="/duplicants" element={<DuplicantsPage />}/>
         <Route
             path="/duplicants/:gameObjectId"
@@ -26,7 +29,7 @@ const Routes: React.FC = () => (
         <Route path="/materials" element={<MaterialsPage />}/>
         <Route path="/planets" element={<PlanetsPage />}/>
         <Route path="/changelog" element={<ChangelogPage />}/>
-        <Route path="*" element={<OverviewPage />} />
+        <Route path="*" element={<NotFoundPage />} />
 
     </RouterRoutes>
 );

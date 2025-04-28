@@ -100,7 +100,7 @@ function loadFile(fileName: string): SaveGame {
   const interceptor = (compose as any)((x: any) => x, ...interceptors);
 
   try {
-    return parseSaveGame(fileData.buffer, interceptor);
+    return parseSaveGame(new Uint8Array(fileData.values()).buffer, interceptor);
   } catch (e : any) {
     console.error(`Load error at ${currentTagPath.join(" => ")}`);
     e.tagPath = [...currentTagPath];

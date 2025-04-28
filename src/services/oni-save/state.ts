@@ -25,9 +25,6 @@ export interface FileMeta {
 }
 
 export interface OniSaveState {
-  // Its generally a bad idea to store buffer objects like this on redux.
-  // However, we need to keep this around in case the save fails to load due to a version mismatch
-  // and the user wants to force a load.
   loadingFile: FileMeta | null;
   loadingStatus: LoadingStatus;
   loadingProgressMessage: string | null;
