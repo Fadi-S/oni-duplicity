@@ -11,7 +11,8 @@ export interface ShapeProps {
 
 const Shape: React.FC<ShapeProps> = ({ shape, className, ordinal, direction = DuplicantDirection.Right }) => {
     const loadImage = async () => {
-        const image = await import(requireShape(shape, ordinal, direction));
+        const path = requireShape(shape, ordinal, direction);
+        const image = await import(`../../../assets/duplicant/${path}.png`);
 
         return image.default;
     };

@@ -29,7 +29,7 @@ const DuplicantEditor = ({ gameObjectId }: DuplicantEditorProps) => {
     ];
 
     return (
-        <PageContainer title={t("duplicant.verbs.edit_titlecase")} back>
+        <div title={t("duplicant.verbs.edit_titlecase")}>
             <div className="flex flex-col w-full h-full p-4">
                 {/* Name Section */}
                 <div className="flex-none">
@@ -91,7 +91,7 @@ const DuplicantEditor = ({ gameObjectId }: DuplicantEditorProps) => {
                     </div>
                 </div>
             </div>
-        </PageContainer>
+        </div>
     );
 };
 

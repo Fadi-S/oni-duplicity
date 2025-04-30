@@ -1,4 +1,4 @@
-import { DuplicantContainer, Hair, Head, Eyes } from "@/react-oni-duplicant";
+import { Hair, Head, Eyes } from "@/react-oni-duplicant";
 import React from "react";
 
 export interface HeadPortraitProps {
@@ -23,7 +23,7 @@ const HeadPortrait = ({
         onClick={onClick}
     >
       <div className="absolute top-[85px] left-[56px] w-[250px] h-[250px] scale-[0.4] origin-top-left">
-        <DuplicantContainer>
+        <div>
           <Head
               className={clickable ? "cursor-pointer" : ""}
               ordinal={headOrdinal}
@@ -36,7 +36,7 @@ const HeadPortrait = ({
               className={clickable ? "cursor-pointer" : ""}
               ordinal={hairOrdinal}
           />
-        </DuplicantContainer>
+        </div>
       </div>
     </div>
 );

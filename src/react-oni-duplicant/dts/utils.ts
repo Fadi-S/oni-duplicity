@@ -16,9 +16,8 @@ export function requireShape(shape: string, ordinal: number, direction: Duplican
         forward: 1,
         away: 2,
     }[direction];
-    console.log(direction, dir);
 
-    return `/src/assets/duplicant/${shape}/${shapeName}/${shapeName}_${dir}.png`;
+    return `/src/assets/duplicant/${shape}/${shapeName}/${shapeName}_${dir}`;
 }
 
 export function requireHead(ordinal: number, direction: DuplicantDirection) : string {
