@@ -4,6 +4,7 @@ import { GeyserType, GeyserTypeInGameNames } from '@/parser/main';
 import useGeyser from '@/services/oni-save/hooks/useGeyser';
 import { keysOfType } from '@/utils';
 import React from "react";
+import Input from "@/components/Input";
 
 export interface GeyserListItemProps {
     gameObjectId: number;
@@ -18,6 +19,8 @@ const GeyserListItem = ({ className, gameObjectId }: GeyserListItemProps) => {
         yearLength,
         yearActive,
         emitActive,
+        position,
+        onChangePosition,
         onChangeEmitRate,
         onChangeGeyserType,
         onChangeYearLength,
@@ -73,6 +76,35 @@ const GeyserListItem = ({ className, gameObjectId }: GeyserListItemProps) => {
                 value={(emitRate || 0) * 100}
                 onChange={handleSliderChange(onChangeEmitRate)}
             />
+
+            <div className="mt-6 space-y-3">
+                <h3>Position</h3>
+
+                <Input
+                    label="X"
+                    id={`position-x-${gameObjectId}`}
+                    name="position-x"
+                    type="number"
+                    value={position.x ?? ''}
+                    onChange={(e) => onChangePosition({ ...position, x: Number(e.target.value) })}
+                />
+                <Input
+                    label="Y"
+                    id={`position-y-${gameObjectId}`}
+                    name="position-y"
+                    type="number"
+                    value={position.y ?? ''}
+                    onChange={(e) => onChangePosition({ ...position, y: Number(e.target.value) })}
+                />
+                <Input
+                    label="Z"
+                    id={`position-z-${gameObjectId}`}
+                    name="position-z"
+                    type="number"
+                    value={position.z ?? ''}
+                    onChange={(e) => onChangePosition({ ...position, z: Number(e.target.value) })}
+                />
+            </div>
         </div>
     );
 };
