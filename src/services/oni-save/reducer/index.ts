@@ -17,6 +17,7 @@ import modifyRawReducer from "./modify-raw";
 import parseProgressReducer from "./parse-progress";
 import pasteBehaviorsReducer from "./paste-behaviors";
 import receiveOniSaveReducer from "./receive-onisave";
+import modifyPositionReducer from "@/services/oni-save/reducer/modify-position";
 
 export default reduceReducers(
   changeGeyserParameter,
@@ -30,6 +31,7 @@ export default reduceReducers(
   mergeBehaviorsReducer,
   modifyBehaviorPathReducer,
   modifyBehaviorReducer,
+  modifyPositionReducer,
   modifyDifficultyReducer,
   modifyPlanetReducer,
   modifyRawReducer,

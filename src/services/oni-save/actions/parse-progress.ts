@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 
 export const ACTION_ONISAVE_PARSE_PROGRESS = "onisave/parse-progress";
 
@@ -10,7 +10,7 @@ export const parseProgress = (message: string) => ({
 export type ParseProgressAction = ReturnType<typeof parseProgress>;
 
 export function isParseProgressAction(
-  action: AnyAction
+  action: Action
 ): action is ParseProgressAction {
   return action.type === ACTION_ONISAVE_PARSE_PROGRESS;
 }

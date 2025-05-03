@@ -1,11 +1,6 @@
 import * as React from "react";
 import { get } from "lodash";
 import { SaveGame } from "@/parser/main";
-
-import TreeView from "@material-ui/lab/TreeView";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import TreeItem from "@material-ui/lab/TreeItem";
 import { getSegmentName } from "../../editor-data";
 
 export interface RawObjectTreeProps {
@@ -15,22 +10,14 @@ export interface RawObjectTreeProps {
 }
 
 const RawObjectTree: React.FC<RawObjectTreeProps> = ({
-  className,
-  saveGame,
-  onChangePath
-}) => {
+                                                       className,
+                                                       saveGame,
+                                                       onChangePath
+                                                     }) => {
   return (
-    <TreeView
-      className={className}
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
-    >
-      <RawTreeChildren
-        saveGame={saveGame}
-        path={[]}
-        onChangePath={onChangePath}
-      />
-    </TreeView>
+      <div className={className}>
+        <RawTreeChildren saveGame={saveGame} path={[]} onChangePath={onChangePath} />
+      </div>
   );
 };
 
@@ -42,27 +29,30 @@ interface RawTreeChildrenProps {
   onChangePath(path: string[]): void;
 }
 const RawTreeChildren: React.FC<RawTreeChildrenProps> = ({
-  saveGame,
-  path,
-  onChangePath
-}) => {
-  const target = path.length == 0 ? saveGame : get(saveGame, path);
+                                                           saveGame,
+                                                           path,
+                                                           onChangePath
+                                                         }) => {
+  const target = path.length === 0 ? saveGame : get(saveGame, path);
   const childrenKeys = Object.keys(target).filter(key =>
-    isObjectKey(target, key)
+      isObjectKey(target, key)
   );
-  const children = childrenKeys.map(key => {
-    const childPath = [...path, key];
-    return (
-      <RawTreeChild
-        key={childPath.join(".")}
-        saveGame={saveGame}
-        path={childPath}
-        onChangePath={onChangePath}
-      />
-    );
-  });
 
-  return <>{children}</>;
+  return (
+      <ul style={{ listStyleType: "none", paddingLeft: "1em" }}>
+        {childrenKeys.map(key => {
+          const childPath = [...path, key];
+          return (
+              <RawTreeChild
+                  key={childPath.join(".")}
+                  saveGame={saveGame}
+                  path={childPath}
+                  onChangePath={onChangePath}
+              />
+          );
+        })}
+      </ul>
+  );
 };
 
 interface RawTreeChildProps {
@@ -71,24 +61,31 @@ interface RawTreeChildProps {
   onChangePath(path: string[]): void;
 }
 const RawTreeChild: React.FC<RawTreeChildProps> = ({
-  saveGame,
-  path,
-  onChangePath
-}) => {
-  const onClick = React.useCallback(() => {
-    onChangePath(path);
-  }, [onChangePath, path]);
-
+                                                     saveGame,
+                                                     path,
+                                                     onChangePath
+                                                   }) => {
   const segmentName = getSegmentName(saveGame, path);
+  const handleClick = () => onChangePath(path);
 
   return (
-    <TreeItem nodeId={path.join(".")} label={segmentName} onClick={onClick}>
-      <RawTreeChildren
-        saveGame={saveGame}
-        path={path}
-        onChangePath={onChangePath}
-      />
-    </TreeItem>
+      <li>
+        <div
+            onClick={handleClick}
+            style={{
+              cursor: "pointer",
+              padding: "2px 4px",
+              borderRadius: "4px",
+              userSelect: "none",
+              transition: "background 0.2s",
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.background = "#f0f0f0")}
+            onMouseOut={(e) => (e.currentTarget.style.background = "transparent")}
+        >
+          {segmentName}
+        </div>
+        <RawTreeChildren saveGame={saveGame} path={path} onChangePath={onChangePath} />
+      </li>
   );
 };
 

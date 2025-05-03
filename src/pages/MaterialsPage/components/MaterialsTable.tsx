@@ -1,108 +1,99 @@
-import * as React from "react";
-
-import { WithTranslation, withTranslation } from "react-i18next";
-
-import { makeStyles, Theme } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import TableBody from "@material-ui/core/TableBody";
-
+import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useMaterialList } from "@/services/oni-save/hooks/useMaterials";
-
 import DeleteLooseButton from "./DeleteLooseButton";
+import React from "react";
 
 export interface MaterialsPageProps {
   className?: string;
 }
 
-type Props = MaterialsPageProps & WithTranslation;
-
-const useStyles = makeStyles((theme: Theme) => ({
-  searchBox: {
-    margin: theme.spacing()
-  },
-  row: {
-    height: "64px"
-  }
-}));
-
-const MaterialsTable: React.FC<Props> = ({ className, t }) => {
-  const styles = useStyles();
+const MaterialsTable = ({ className }: MaterialsPageProps) => {
+  const { t } = useTranslation();
   const materials = useMaterialList();
-  const [search, setSearch] = React.useState("");
-  const onSearchChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearch(e.target.value.toLowerCase());
-    },
-    []
+  const [search, setSearch] = useState("");
+
+  const onSearchChange = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value.toLowerCase());
+      },
+      []
   );
 
-  function formatWeight(weight: number) {
+  const formatWeight = (weight: number) => {
     if (Math.abs(weight) < 1000) {
       const g = Number(weight.toFixed(2));
       return t("material.gram", { count: g });
     }
-
     const kg = Number((weight / 1000.0).toFixed(2));
     return t("material.kilogram", { count: kg });
-  }
+  };
 
   const displayMaterials = materials.filter(
-    x => search === "" || x.name.toLowerCase().indexOf(search) !== -1
+      x => search === "" || x.name.toLowerCase().includes(search)
   );
 
   return (
-    <div>
-      <TextField
-        className={styles.searchBox}
-        label="Search"
-        onChange={onSearchChange}
-      />
-      <Table className={className} size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>{t("material.noun_titlecase")}</TableCell>
-            <TableCell>
-              <DeleteLooseButton />
-              {t("material_loose.noun_titlecase")}
-            </TableCell>
-            <TableCell>{t("material_storage.noun_titlecase")}</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {displayMaterials.map(
-            ({ name, looseGrams, looseCount, storedGrams, storedCount }) => (
-              <TableRow className={styles.row} key={name}>
-                <TableCell>{name}</TableCell>
-                <TableCell>
-                  {looseGrams > 0 && (
-                    <>
-                      <DeleteLooseButton materialType={name} />
-                      {formatWeight(looseGrams)}&nbsp;|&nbsp;
-                      {t("material_loose.clump_count", { count: looseCount })}
-                    </>
-                  )}
-                </TableCell>
-                <TableCell>
-                  {storedGrams > 0 && (
-                    <>
-                      {formatWeight(storedGrams)}&nbsp;|&nbsp;
-                      {t("material_storage.container_count", {
-                        count: storedCount
-                      })}
-                    </>
-                  )}
-                </TableCell>
-              </TableRow>
-            )
-          )}
-        </TableBody>
-      </Table>
-    </div>
+      <div className={className}>
+        <div className="m-4">
+          <input
+              type="text"
+              placeholder={t("search")}
+              onChange={onSearchChange}
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {t("material.noun_titlecase")}
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <DeleteLooseButton />
+                {t("material_loose.noun_titlecase")}
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {t("material_storage.noun_titlecase")}
+              </th>
+            </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+            {displayMaterials.map(
+                ({ name, looseGrams, looseCount, storedGrams, storedCount }) => (
+                    <tr key={name} className="h-16 hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        {name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {looseGrams > 0 && (
+                            <div className="flex items-center gap-2">
+                              <DeleteLooseButton materialType={name} />
+                              <span>
+                          {formatWeight(looseGrams)} | {t("material_loose.clump_count", { count: looseCount })}
+                        </span>
+                            </div>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {storedGrams > 0 && (
+                            <span>
+                        {formatWeight(storedGrams)} | {t("material_storage.container_count", {
+                              count: storedCount
+                            })}
+                      </span>
+                        )}
+                      </td>
+                    </tr>
+                )
+            )}
+            </tbody>
+          </table>
+        </div>
+      </div>
   );
 };
 
-export default withTranslation()(MaterialsTable);
+export default MaterialsTable;

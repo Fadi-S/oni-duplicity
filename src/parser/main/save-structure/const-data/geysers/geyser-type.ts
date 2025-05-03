@@ -22,8 +22,8 @@ export const GeyserTypeNames = [
   "molten_aluminum",
   "molten_tungsten",
   "molten_niobium",
-  "NiobiumGeyser",
-  "MethaneGeyser",
+  // "NiobiumGeyser",
+  // "MethaneGeyser",
   "molten_cobalt",
   "oil_drip",
   "liquid_sulfur",
@@ -34,7 +34,7 @@ export const GeyserTypeNames = [
   "slush_salt_water"
 ] as const;
 
-export const GeyserTypeInGameNames = [
+const GeyserTypeInGameNamesArray = [
   "Cool Steam Vent",
   "Steam Vent",
   "Water Geyser",
@@ -56,8 +56,8 @@ export const GeyserTypeInGameNames = [
   "Aluminum Volcano",
   "Tungsten Volcano",
   "Niobium Volcano",
-  "NiobiumGeyser",
-  "MethaneGeyser",
+  // "NiobiumGeyser",
+  // "MethaneGeyser",
   "Cobalt Volcano",
   "Leaky Oil Fissure",
   "Liquid Sulfur Geyser",
@@ -67,6 +67,10 @@ export const GeyserTypeInGameNames = [
   // "liquid_ethanol",
   "Cool Salt Slush Geyser"
 ] as const;
+
+export const GeyserTypeInGameNames = Object.fromEntries(
+  GeyserTypeNames.map((name, index) => [name, GeyserTypeInGameNamesArray[index]])
+);
 
 export type GeyserType = HashedString;
 

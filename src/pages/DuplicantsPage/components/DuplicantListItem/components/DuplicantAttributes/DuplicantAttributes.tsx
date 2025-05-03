@@ -1,13 +1,6 @@
 import * as React from "react";
 import classnames from "classnames";
 
-import {
-  Theme,
-  createStyles,
-  withStyles,
-  WithStyles
-} from "@material-ui/core/styles";
-
 import Attribute from "./components/Attribute";
 
 export interface DuplicantAttributesProps {
@@ -15,31 +8,13 @@ export interface DuplicantAttributesProps {
   gameObjectId: number;
 }
 
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      flexDirection: "column",
-      flexWrap: "wrap",
-      width: theme.spacing(30),
-      height: theme.spacing(20),
-      marginLeft: -theme.spacing(0.5),
-      marginRight: -theme.spacing(0.5)
-    },
-    item: {
-      marginLeft: theme.spacing(0.5),
-      marginRight: theme.spacing(0.5)
-    }
-  });
-
-type Props = DuplicantAttributesProps & WithStyles<typeof styles>;
+type Props = DuplicantAttributesProps;
 
 const DuplicantAttributes: React.FC<Props> = ({
   className,
-  classes,
   gameObjectId
 }) => (
-  <div className={classnames(className, classes.root)}>
+  <div className={classnames(className, "grid grid-cols-2 gap-6")}>
     <Attribute gameObjectId={gameObjectId} attributeId="Athletics" />
     <Attribute gameObjectId={gameObjectId} attributeId="Cooking" />
     <Attribute gameObjectId={gameObjectId} attributeId="Digging" />
@@ -55,4 +30,4 @@ const DuplicantAttributes: React.FC<Props> = ({
   </div>
 );
 
-export default withStyles(styles)(DuplicantAttributes);
+export default DuplicantAttributes;

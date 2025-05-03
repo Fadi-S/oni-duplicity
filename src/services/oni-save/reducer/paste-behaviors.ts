@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 import { getBehavior, SaveGame, GameObject } from "@/parser/main";
 
 import { OniSaveState, defaultOniSaveState, BehaviorCopyData } from "../state";
@@ -16,7 +16,7 @@ import {
 
 export default function pasteBehaviorsReducer(
   state: OniSaveState = defaultOniSaveState,
-  action: AnyAction
+  action: Action
 ): OniSaveState {
   if (!isPasteBehaviorsAction(action)) {
     return state;

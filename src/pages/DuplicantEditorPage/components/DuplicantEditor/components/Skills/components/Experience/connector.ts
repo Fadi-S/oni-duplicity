@@ -1,55 +1,43 @@
-import { MinionResumeBehavior } from "@/parser/main";
-import { createSelector } from "reselect";
-import { Dispatch } from "redux";
-import { connect } from "react-redux";
+import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { createStructuredSelector } from "@/state";
-import { getBehaviorSelector } from "@/services/oni-save/selectors/behaviors";
-import { modifyBehaviorPath } from "@/services/oni-save/actions/modify-behavior-path";
+import { MinionResumeBehavior } from '@/parser/main';
+import { getBehaviorSelector } from '@/services/oni-save/selectors/behaviors';
+import { modifyBehaviorPath } from '@/services/oni-save/actions/modify-behavior-path';
+import { RootState, AppDispatch } from '@/store/store';
 
-export interface ExperienceConnectorProps {
-  gameObjectId: number;
+// Selector to derive experience from the MinionResumeBehavior
+const experienceSelector = (gameObjectId: number) =>
+    (state: RootState) => {
+      const resume = getBehaviorSelector(MinionResumeBehavior)(state, { gameObjectId });
+      // @ts-ignore: templateData may be undefined
+      return resume?.templateData?.totalExperienceGained ?? 0;
+    };
+
+/**
+ * Hook to read and write experience for a given Minion (gameObjectId).
+ */
+export function useExperience(gameObjectId: number) {
+  const dispatch = useDispatch<AppDispatch>();
+
+  // Read current experience from Redux
+  const experience = useSelector(experienceSelector(gameObjectId));
+
+  // Dispatcher to update experience (clamped to >= 0)
+  const setExperience = React.useCallback(
+      (value: number) => {
+        const newExp = Math.max(0, value);
+        dispatch(
+            modifyBehaviorPath(
+                gameObjectId,
+                MinionResumeBehavior,
+                ['templateData', 'totalExperienceGained'],
+                newExp
+            )
+        );
+      },
+      [dispatch, gameObjectId]
+  );
+
+  return { experience, setExperience };
 }
-
-const experienceSelector = createSelector(
-  getBehaviorSelector(MinionResumeBehavior),
-  resume => {
-    if (!resume) {
-      return 0;
-    }
-    // @ts-ignore
-    return resume.templateData.totalExperienceGained;
-  }
-);
-
-const mapStateToProps = createStructuredSelector({
-  experience: experienceSelector
-});
-
-function mapDispatchToProps(
-  dispatch: Dispatch,
-  ownProps: ExperienceConnectorProps
-) {
-  const { gameObjectId } = ownProps;
-  return {
-    setExperience(experience: number) {
-      if (experience < 0) {
-        experience = 0;
-      }
-
-      const action = modifyBehaviorPath(
-        gameObjectId,
-        MinionResumeBehavior,
-        ["templateData", "totalExperienceGained"],
-        experience
-      );
-
-      dispatch(action);
-    }
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-);

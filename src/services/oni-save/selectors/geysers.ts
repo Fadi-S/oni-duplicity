@@ -1,6 +1,6 @@
-import createCachedSelector from "re-reselect";
-import { gameObjectsByIdSelector } from "./game-objects";
-import { getBehavior, GeyserBehavior } from "@/parser/main";
+import {createCachedSelector} from "re-reselect";
+import {gameObjectsByIdSelector} from "./game-objects";
+import {getBehavior, GeyserBehavior} from "@/parser/main";
 
 export const geyserConfigSelector = createCachedSelector(
   gameObjectsByIdSelector,
@@ -17,4 +17,14 @@ export const geyserConfigSelector = createCachedSelector(
     }
     return geyserBehavior.templateData.configuration;
   }
+)((_: any, gameObjectId: number) => gameObjectId);
+
+export const geyserPositionSelector = createCachedSelector(
+    gameObjectsByIdSelector,
+    (_: any, gameObjectId: number) => gameObjectId,
+    (gameObjectsById, gameObjectId) => {
+        const gameObject = gameObjectsById[gameObjectId];
+
+        return gameObject.position;
+    }
 )((_: any, gameObjectId: number) => gameObjectId);

@@ -1,89 +1,82 @@
-import * as React from "react";
-import { BehaviorName } from "@/parser/main";
-
-import { withTranslation, WithTranslation } from "react-i18next";
-
-import Dialog from "@material-ui/core/Dialog";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Button from "@material-ui/core/Button";
+import React, {useState, useCallback} from 'react';
+import {useTranslation} from 'react-i18next';
+import {BehaviorName} from '@/parser/main';
 
 export interface BehaviorChoice {
-  name: string;
-  i18nKey: string;
-  behavior: BehaviorName<any>;
+    name: string;
+    i18nKey: string;
+    behavior: BehaviorName<any>;
 }
 
 export interface BehaviorChooserDialogProps {
-  title: string;
-  applyText: string;
-  open: boolean;
-  choices: BehaviorChoice[];
-  onApply(behaviors: string[]): void;
-  onCancel(): void;
+    title: string;
+    applyText: string;
+    open: boolean;
+    choices: BehaviorChoice[];
+
+    onApply(behaviors: string[]): void;
+
+    onCancel(): void;
 }
-type Props = BehaviorChooserDialogProps & WithTranslation;
-const BehaviorChooserDialog: React.FC<Props> = ({
-  title,
-  applyText,
-  open,
-  choices,
-  onApply,
-  onCancel,
-  t
-}) => {
-  const [selectedTargets, setSelectedTargets] = React.useState<string[]>([]);
-  const onCheckboxChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.checked) {
-        // Add item
-        setSelectedTargets([...selectedTargets, e.target.value]);
-      } else {
-        // Remove item
-        setSelectedTargets(selectedTargets.filter(x => x !== e.target.value));
-      }
-    },
-    [selectedTargets, setSelectedTargets]
-  );
-  const onApplyClick = React.useCallback(() => {
-    onApply(selectedTargets);
-  }, [selectedTargets]);
-  return (
-    <Dialog open={open} airia-labeledby="behavior-chooser-dialog-title">
-      {open && (
-        <React.Fragment>
-          <DialogTitle id="behavior-chooser-dialog-title">{title}</DialogTitle>
-          <DialogContent>
-            {choices.map(({ name, i18nKey, behavior }) => (
-              <FormControlLabel
-                key={behavior}
-                control={
-                  <Checkbox
-                    checked={selectedTargets.indexOf(behavior) !== -1}
-                    value={behavior}
-                    onChange={onCheckboxChange}
-                    color="primary"
-                  />
-                }
-                label={t(i18nKey, { defaultValue: name })}
-              />
-            ))}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={onCancel}>
-              {t("dialog.verbs.cancel_titlecase", { defaultValue: "Cancel" })}
-            </Button>
-            <Button onClick={onApplyClick} autoFocus>
-              {applyText}
-            </Button>
-          </DialogActions>
-        </React.Fragment>
-      )}
-    </Dialog>
-  );
+
+const BehaviorChooserDialog = ({
+                                   title,
+                                   applyText,
+                                   open,
+                                   choices,
+                                   onApply,
+                                   onCancel,
+                               }: BehaviorChooserDialogProps) => {
+    const {t} = useTranslation();
+    const [selectedTargets, setSelectedTargets] = useState<string[]>([]);
+
+    const onCheckboxChange = useCallback((behavior: string, checked: boolean) => {
+        setSelectedTargets(prev =>
+            checked ? [...prev, behavior] : prev.filter(x => x !== behavior))
+    }, []);
+
+    const onApplyClick = useCallback(() => {
+        onApply(selectedTargets);
+    }, [selectedTargets, onApply]);
+
+    if (!open) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg shadow-xl w-96">
+                <div className="p-4 border-b">
+                    <h2 className="text-lg font-medium">{title}</h2>
+                </div>
+                <div className="p-4 max-h-96 overflow-y-auto">
+                    {choices.map(({name, i18nKey, behavior}) => (
+                        <label key={behavior} className="flex items-center space-x-2 p-2 hover:bg-gray-50">
+                            <input
+                                type="checkbox"
+                                checked={selectedTargets.includes(behavior)}
+                                onChange={(e) => onCheckboxChange(behavior, e.target.checked)}
+                                className="h-4 w-4 text-blue-600 rounded"
+                            />
+                            <span>{t(i18nKey, {defaultValue: name})}</span>
+                        </label>
+                    ))}
+                </div>
+                <div className="p-4 border-t flex justify-end space-x-2">
+                    <button
+                        onClick={onCancel}
+                        className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
+                    >
+                        {t("dialog.verbs.cancel_titlecase", {defaultValue: "Cancel"})}
+                    </button>
+                    <button
+                        onClick={onApplyClick}
+                        className="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded"
+                    >
+                        {applyText}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
 };
 
-export default withTranslation()(BehaviorChooserDialog);
+export default BehaviorChooserDialog;

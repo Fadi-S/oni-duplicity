@@ -1,14 +1,10 @@
-/*
-This should be kept minimal and only provide globals
-or non-react component styles.
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-Styles for react components should use the jss style api provided
-by material-ui
-*/
+input[type="range"]::-webkit-slider-thumb {
+  @apply w-4 h-4 bg-blue-500 rounded-full appearance-none cursor-pointer;
+}
 
-html,
-body,
-#root {
-  width: 100%;
-  height: 100%;
+input[type="range"]::-moz-range-thumb {
+  @apply w-4 h-4 bg-blue-500 rounded-full appearance-none cursor-pointer;
 }

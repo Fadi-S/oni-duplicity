@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 
 export const ACTION_ONISAVE_CLONE_DUPLICANT = "oni-save/clone-duplicant";
 export const cloneDuplicant = (gameObjectId: number) => ({
@@ -8,7 +8,7 @@ export const cloneDuplicant = (gameObjectId: number) => ({
 export type CloneDuplicantAction = ReturnType<typeof cloneDuplicant>;
 
 export function isCloneDuplicantAction(
-  action: AnyAction
+  action: Action
 ): action is CloneDuplicantAction {
   return action.type === ACTION_ONISAVE_CLONE_DUPLICANT;
 }

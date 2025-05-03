@@ -1,11 +1,11 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 
 import { OniSaveState, defaultOniSaveState, LoadingStatus } from "../state";
 import { isLoadOniSaveAction } from "../actions/load-onisave";
 
 export default function loadExampleSaveReducer(
   state: OniSaveState = defaultOniSaveState,
-  action: AnyAction
+  action: Action
 ): OniSaveState {
   if (!isLoadOniSaveAction(action)) {
     return state;
@@ -15,6 +15,11 @@ export default function loadExampleSaveReducer(
 
   return {
     ...state,
-    loadingFile: file,
+    loadingFile: {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        lastModified: file.lastModified,
+    },
   };
 }

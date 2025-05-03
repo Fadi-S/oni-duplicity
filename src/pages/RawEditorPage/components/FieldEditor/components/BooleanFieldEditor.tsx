@@ -1,9 +1,6 @@
 import * as React from "react";
 import { last } from "lodash";
 
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-
 import { UnconnectedEditorProps } from "../EditorProps";
 
 const BooleanFieldEditor: React.FC<UnconnectedEditorProps> = ({
@@ -16,17 +13,10 @@ const BooleanFieldEditor: React.FC<UnconnectedEditorProps> = ({
     onValueChanged(e.target.checked)
   }, [onValueChanged]);
   return (
-    <FormControlLabel
-      control={
-        <Checkbox
-          checked={Boolean(value)}
-          onChange={onChange}
-          color="primary"
-        />
-      }
-      label={label}
-    />
-
+      <div>
+          <label>{label}</label>
+          <input checked={Boolean(value)} onChange={onChange} type="checkbox" />
+      </div>
   );
 };
 

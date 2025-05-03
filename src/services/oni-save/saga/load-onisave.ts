@@ -22,13 +22,9 @@ export default function* saveEditorSaga(): SagaIterator {
 }
 
 function* handleOniSaveLoad(action: LoadOniSaveAction): SagaIterator {
-  const { file, bypassVersionCheck } = action.payload;
+  const data = new Uint8Array(action.payload.data).buffer;
 
-  yield put(receiveOniSaveBegin(LoadingStatus.Loading, true));
-
-  const data: ArrayBuffer = yield call(readFile, file);
-
-  const loadChannel = createLoadChannel(data, bypassVersionCheck);
+  const loadChannel = createLoadChannel(data, action.payload.bypassVersionCheck);
 
   while (true) {
     const msg = yield take(loadChannel);
@@ -73,18 +69,5 @@ function createLoadChannel(data: ArrayBuffer, bypassVersionCheck: boolean) {
     //This is the cancellation func.
     // TODO: We can support cancellation in @/parser/main rather easily.
     return () => {};
-  });
-}
-
-function readFile(file: File): Promise<ArrayBuffer> {
-  const reader = new FileReader();
-  return new Promise<ArrayBuffer>((accept, reject) => {
-    reader.onload = () => {
-      accept(reader.result as ArrayBuffer);
-    };
-    reader.onerror = () => {
-      reject(reader.error);
-    };
-    reader.readAsArrayBuffer(file);
   });
 }

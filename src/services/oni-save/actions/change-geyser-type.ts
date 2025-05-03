@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 import {GeyserTypeInGameNames, GeyserTypeNames} from "@/parser/main";
 
 export const ACTION_ONISAVE_CHANGE_GEYSER_TYPE = "oni-save/change-geyser-type";
@@ -10,7 +10,7 @@ export const ACTION_ONISAVE_CHANGE_GEYSER_TYPE = "oni-save/change-geyser-type";
  */
 export const changeGeyserType = (gameObjectId: number, geyserType: string) => {
   // @ts-ignore
-  const geyserName = GeyserTypeInGameNames[GeyserTypeNames.indexOf(geyserType)];
+  const geyserName = GeyserTypeInGameNames[geyserType];
 
   return ({
     type: ACTION_ONISAVE_CHANGE_GEYSER_TYPE as typeof ACTION_ONISAVE_CHANGE_GEYSER_TYPE,
@@ -19,7 +19,7 @@ export const changeGeyserType = (gameObjectId: number, geyserType: string) => {
 };
 export type ChangeGeyserTypeAction = ReturnType<typeof changeGeyserType>;
 export function isChangeGeyserTypeAction(
-  action: AnyAction
+  action: Action
 ): action is ChangeGeyserTypeAction {
   return action.type === ACTION_ONISAVE_CHANGE_GEYSER_TYPE;
 }

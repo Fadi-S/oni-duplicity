@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 
 import { OniSaveState, defaultOniSaveState } from "../state";
 
@@ -14,7 +14,7 @@ import { getGameObjectGroup, getBehavior } from "@/parser/main";
 
 export default function modifyDifficultyReducer(
   state: OniSaveState = defaultOniSaveState,
-  action: AnyAction
+  action: Action
 ): OniSaveState {
   if (!isModifyDifficultyAction(action)) {
     return state;

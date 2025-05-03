@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 import { SaveGame } from "@/parser/main";
 import { set as setFp } from "lodash/fp";
 
@@ -10,7 +10,7 @@ import { tryModifySaveGame } from "./utils";
 
 export default function modifyRawReducer(
   state: OniSaveState = defaultOniSaveState,
-  action: AnyAction
+  action: Action
 ): OniSaveState {
   if (!isModifyRawAction(action)) {
     return state;

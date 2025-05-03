@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action } from "redux";
 
 export const ACTION_ONISAVE_COPY_BEHAVIORS = "oni-save/copy-behaviors";
 export const copyBehaviors = (gameObjectId: number, behaviors: string[]) => ({
@@ -8,7 +8,7 @@ export const copyBehaviors = (gameObjectId: number, behaviors: string[]) => ({
 export type CopyBehaviorsAction = ReturnType<typeof copyBehaviors>;
 
 export function isCopyBehaviorsAction(
-  action: AnyAction
+  action: Action
 ): action is CopyBehaviorsAction {
   return action.type === ACTION_ONISAVE_COPY_BEHAVIORS;
 }

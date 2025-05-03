@@ -1,69 +1,65 @@
-import * as React from "react";
-
+import React, { useState, useCallback } from "react";
 import { Trans } from "react-i18next";
-
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 
 export interface ConfirmationDialogProps {
   title: string;
   message: string;
   onConfirm(): void;
   onCancel?(): void;
-  children(props: ConfirmationDialogRenderProps): React.ReactChild;
-}
-export interface ConfirmationDialogRenderProps {
-  onClick(): void;
+  children(props: { onClick(): void }): React.ReactNode;
 }
 
-type Props = ConfirmationDialogProps;
-const ConfirmationDialog: React.FC<Props> = ({
-  title,
-  message,
-  onConfirm,
-  onCancel,
-  children
-}) => {
-  const [isOpen, setOpen] = React.useState(false);
+const ConfirmationDialog = ({
+                              title,
+                              message,
+                              onConfirm,
+                              onCancel,
+                              children
+                            }: ConfirmationDialogProps) => {
+  const [isOpen, setOpen] = useState(false);
 
-  const onCancelClick = React.useCallback(() => {
+  const onCancelClick = useCallback(() => {
     setOpen(false);
-    if (onCancel) {
-      onCancel();
-    }
+    onCancel?.();
   }, [onCancel]);
 
-  const onConfirmClick = React.useCallback(() => {
+  const onConfirmClick = useCallback(() => {
     setOpen(false);
     onConfirm();
   }, [onConfirm]);
 
   return (
-    <>
-      {children({ onClick: () => setOpen(true) })}
-      <Dialog open={isOpen}>
+      <>
+        {children({ onClick: () => setOpen(true) })}
         {isOpen && (
-          <>
-            <DialogTitle>{title}</DialogTitle>
-            <DialogContent>
-              <Typography>{message}</Typography>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={onCancelClick}>
-                <Trans i18nKey="dialog.verbs.cancel_titlecase" />
-              </Button>
-              <Button onClick={onConfirmClick}>
-                <Trans i18nKey="dialog.verbs.confirm_titlecase" />
-              </Button>
-            </DialogActions>
-          </>
+            <div className="fixed inset-0 z-50 flex items-center justify-center">
+              <div className="fixed inset-0 bg-black bg-opacity-50" onClick={onCancelClick}></div>
+              <div className="relative bg-white rounded-lg shadow-xl w-96">
+                <div className="p-4 border-b">
+                  <h3 className="text-lg font-medium">{title}</h3>
+                </div>
+                <div className="p-4">
+                  <p className="text-gray-700">{message}</p>
+                </div>
+                <div className="p-4 border-t flex justify-end space-x-2">
+                  <button
+                      className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
+                      onClick={onCancelClick}
+                  >
+                    <Trans i18nKey="dialog.verbs.cancel_titlecase" />
+                  </button>
+                  <button
+                      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                      onClick={onConfirmClick}
+                  >
+                    <Trans i18nKey="dialog.verbs.confirm_titlecase" />
+                  </button>
+                </div>
+              </div>
+            </div>
         )}
-      </Dialog>
-    </>
+      </>
   );
 };
+
 export default ConfirmationDialog;

@@ -17,15 +17,26 @@ interface Window {
   loadMockError?: Function;
 }
 
-declare module "worker-loader!*" {
-  class WebpackWorker extends Worker {
+declare module "*?worker" {
+  // Vite exposes a Worker subclass here
+  class ViteWorker extends Worker {
     constructor();
   }
-
-  export = WebpackWorker;
+  export default ViteWorker;
 }
 
 declare module "@changelog" {
   const content: string;
-  export = content;
+  export default content;
 }
+
+declare module '*.md' {
+  const src: string;
+  export default src;
+}
+
+declare module '*.json' {
+  const value: any;
+  export default value;
+}
+

@@ -4,7 +4,7 @@ import {
   BehaviorName,
   GameObjectBehavior,
   GameObjectGroup,
-  getBehavior,
+  getBehavior, Vector3,
 } from "@/parser/main";
 import { findIndex } from "lodash";
 
@@ -188,6 +188,16 @@ export function changeStateBehaviorData<
       ...gameObject.behaviors[behaviorIndex],
       [dataKey]: newData,
     }),
+  };
+}
+
+export function changeStatePosition(
+    gameObject: GameObject,
+    position: Vector3,
+): GameObject {
+  return {
+    ...gameObject,
+    position: position,
   };
 }
 

@@ -3,19 +3,16 @@ import "typeface-roboto";
 
 import "@/style.css";
 
-import "@/debug";
-
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React, { Suspense } from "react";
+import { createRoot } from "react-dom/client";
 
 import Root from "./root";
-import {Suspense} from "react";
 
-const rootEl = document.getElementById("root");
-if (rootEl) {
-  ReactDOM.render(
-      <Suspense fallback={<div>Loading translations…</div>}>
+const container = document.getElementById("root");
+if (!container) throw new Error("Root container not found");
+
+createRoot(container).render(
+    <Suspense fallback={<div>Loading translations…</div>}>
         <Root />
-      </Suspense>
-, rootEl);
-}
+    </Suspense>
+);

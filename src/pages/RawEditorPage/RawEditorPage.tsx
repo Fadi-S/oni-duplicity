@@ -1,11 +1,7 @@
-import * as React from "react";
 import { SaveGame } from "@/parser/main";
-
-import { makeStyles, Theme } from "@material-ui/core/styles";
-
+import React, { useState } from "react";
 import PageContainer from "@/components/PageContainer";
 import RedirectIfNoSave from "@/components/RedirectIfNoSave";
-
 import RawObjectTree from "./components/RawObjectTree";
 import BreadcrumbPath from "./components/BreadcrumbPath";
 import ObjectEditor from "./components/ObjectEditor";
@@ -14,52 +10,33 @@ export interface RawEditorPageProps {
   saveGame: SaveGame | null;
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "row",
-    width: "100%",
-    height: "100%"
-  },
-  tree: {
-    width: "500px",
-    overflow: "auto"
-  },
-  content: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    height: "100%",
-    margin: theme.spacing()
-  }
-}));
+const RawEditorPage = ({ saveGame }: RawEditorPageProps) => {
+  const [path, setPath] = useState(["header"]);
 
-const RawEditorPage: React.FC<RawEditorPageProps> = ({ saveGame }) => {
-  const classes = useStyles();
-  const [path, setPath] = React.useState(["header"]);
   return (
-    <PageContainer title="Raw Editor">
-      <RedirectIfNoSave />
-      <div className={classes.root}>
-        {saveGame && (
-          <>
-            <RawObjectTree
-              className={classes.tree}
-              saveGame={saveGame}
-              onChangePath={setPath}
-            />
-            <div className={classes.content}>
-              <BreadcrumbPath
-                path={path}
-                saveGame={saveGame}
-                onChangePath={setPath}
-              />
-              <ObjectEditor path={path} saveGame={saveGame} />
-            </div>
-          </>
-        )}
-      </div>
-    </PageContainer>
+      <PageContainer title="Raw Editor">
+        <RedirectIfNoSave />
+        <div className="flex flex-row w-full h-full">
+          {saveGame && (
+              <>
+                <RawObjectTree
+                    className="w-[500px] overflow-auto"
+                    saveGame={saveGame}
+                    onChangePath={setPath}
+                />
+                <div className="flex flex-col w-full h-full p-4">
+                  <BreadcrumbPath
+                      path={path}
+                      saveGame={saveGame}
+                      onChangePath={setPath}
+                  />
+                  <ObjectEditor path={path} saveGame={saveGame} />
+                </div>
+              </>
+          )}
+        </div>
+      </PageContainer>
   );
 };
+
 export default RawEditorPage;

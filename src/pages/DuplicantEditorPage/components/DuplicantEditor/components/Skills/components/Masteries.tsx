@@ -1,24 +1,14 @@
-import * as React from "react";
 import { MinionResumeBehavior, MinionSkillNames } from "@/parser/main";
 import { find, findIndex } from "lodash";
-
 import { Trans } from "react-i18next";
-
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableBody from "@material-ui/core/TableBody";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import Checkbox from "@material-ui/core/Checkbox";
-
 import useBehavior from "@/services/oni-save/hooks/useBehavior";
+import React from "react";
 
 export interface MasteriesProps {
   gameObjectId: number;
 }
 
-type Props = MasteriesProps;
-const Masteries: React.FC<Props> = ({ gameObjectId }) => {
+const Masteries = ({ gameObjectId }: MasteriesProps) => {
   const { templateData: { MasteryBySkillID }, onTemplateDataModify } = useBehavior(gameObjectId, MinionResumeBehavior);
 
   function onChangeMastery(skillName: string, value: boolean) {
@@ -48,41 +38,43 @@ const Masteries: React.FC<Props> = ({ gameObjectId }) => {
   }
 
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>
-            <Trans i18nKey="duplicant_skills.noun_titlecase">Skill</Trans>
-          </TableCell>
-          <TableCell>
-            <Trans i18nKey="duplicant_skills.mastery_titlecase">
-              Mastery
-                </Trans>
-          </TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {MinionSkillNames.map(skillName => (
-          <TableRow key={skillName}>
-            <TableCell>{skillName}</TableCell>
-            <TableCell>
-              <Checkbox
-                checked={getMastery(MasteryBySkillID, skillName)}
-                onChange={(_, value) => onChangeMastery(skillName, value)}
-              />
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+      <div className="border border-gray-200 rounded-lg overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+          <tr>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <Trans i18nKey="duplicant_skills.noun_titlecase">Skill</Trans>
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <Trans i18nKey="duplicant_skills.mastery_titlecase">Mastery</Trans>
+            </th>
+          </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+          {MinionSkillNames.map(skillName => (
+              <tr key={skillName}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {skillName}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <input
+                      type="checkbox"
+                      checked={getMastery(MasteryBySkillID, skillName)}
+                      onChange={(e) => onChangeMastery(skillName, e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                </td>
+              </tr>
+          ))}
+          </tbody>
+        </table>
+      </div>
   );
-}
+};
+
 export default Masteries;
 
 function getMastery(masteries: [string, boolean][], mastery: string): boolean {
   const entry = find(masteries, x => x[0] === mastery);
-  if (!entry) {
-    return false;
-  }
-  return entry[1];
+  return entry ? entry[1] : false;
 }

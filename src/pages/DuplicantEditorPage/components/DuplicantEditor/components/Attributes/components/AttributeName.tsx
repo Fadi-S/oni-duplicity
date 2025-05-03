@@ -1,26 +1,25 @@
-import * as React from "react";
-
-import { WithTranslation, withTranslation } from "react-i18next";
-
-import Typography from "@material-ui/core/Typography";
+import { useTranslation } from "react-i18next";
+import React from "react";
 
 export interface AttributeNameProps {
-  attributeId: string;
+    attributeId: string;
 }
 
-type Props = AttributeNameProps & WithTranslation;
-const AttributeName: React.FC<Props> = ({ attributeId, t }) => (
-  <Typography
-    component="span"
-    variant="body1"
-    title={t(`oni:DUPLICANTS.ATTRIBUTES.${attributeId}.DESC`, {
-      defaultValue: ""
-    })}
-  >
-    {t(`oni:DUPLICANTS.ATTRIBUTES.${attributeId}.NAME`, {
-      defaultValue: attributeId
-    })}
-  </Typography>
-);
+const AttributeName = ({ attributeId }: AttributeNameProps) => {
+    const { t } = useTranslation();
 
-export default withTranslation()(AttributeName);
+    return (
+        <span
+            className="text-base"
+            title={t(`oni:DUPLICANTS.ATTRIBUTES.${attributeId}.DESC`, {
+                defaultValue: ""
+            })}
+        >
+      {t(`oni:DUPLICANTS.ATTRIBUTES.${attributeId}.NAME`, {
+          defaultValue: attributeId
+      })}
+    </span>
+    );
+};
+
+export default AttributeName;

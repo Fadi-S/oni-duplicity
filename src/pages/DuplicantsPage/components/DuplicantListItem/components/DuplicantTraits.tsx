@@ -3,13 +3,6 @@ import { AITraitsBehavior } from "@/parser/main";
 
 import { WithTranslation, withTranslation } from "react-i18next";
 
-import {
-  Theme,
-  createStyles,
-  withStyles,
-  WithStyles
-} from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 
 import useBehavior from "@/services/oni-save/hooks/useBehavior";
 
@@ -17,30 +10,16 @@ export interface DuplicantTraitsProps {
   gameObjectId: number;
 }
 
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      flexDirection: "column"
-    },
-    trait: {
-      textAlign: "center",
-      whiteSpace: "nowrap"
-    }
-  });
+type Props = DuplicantTraitsProps  & WithTranslation;
 
-type Props = DuplicantTraitsProps & WithStyles<typeof styles> & WithTranslation;
-
-const DuplicantTraits: React.FC<Props> = ({ classes, gameObjectId, t }) => {
+const DuplicantTraits: React.FC<Props> = ({ gameObjectId, t }) => {
   const { templateData } = useBehavior(gameObjectId, AITraitsBehavior);
   return (
-    <div className={classes.root}>
+    <div className="flex flex-col">
       {(templateData || { TraitIds: [] }).TraitIds.map(trait => (
-        <Typography
+        <div
           key={trait}
-          className={classes.trait}
-          variant="body2"
-          component="div"
+          className=""
           title={t(`oni:DUPLICANTS.TRAITS.${trait.toUpperCase()}.DESC`, {
             defaultValue: ""
           })}
@@ -48,10 +27,10 @@ const DuplicantTraits: React.FC<Props> = ({ classes, gameObjectId, t }) => {
           {t(`oni:DUPLICANTS.TRAITS.${trait.toUpperCase()}.NAME`, {
             defaultValue: trait
           })}
-        </Typography>
+        </div>
       ))}
     </div>
   );
 }
 
-export default withStyles(styles)(withTranslation()(DuplicantTraits));
+export default withTranslation()(DuplicantTraits);

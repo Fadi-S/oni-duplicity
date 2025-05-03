@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import TextField, { TextFieldProps } from "@material-ui/core/TextField";
-
-export type CommitTextFieldProps = TextFieldProps & {
+export type CommitTextFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
   onCommit?(value: string): void;
+  label?: string;
 };
 
 const CommitTextField: React.FC<CommitTextFieldProps> = props => {
@@ -13,6 +12,7 @@ const CommitTextField: React.FC<CommitTextFieldProps> = props => {
     onBlur: propsOnBlur,
     onKeyPress: propsOnKeyPress,
     value: prevValue,
+      label,
     ...restProps
   } = props;
 
@@ -68,13 +68,13 @@ const CommitTextField: React.FC<CommitTextFieldProps> = props => {
 
   const displayValue = editValue == null ? prevValue : editValue;
   return (
-    <TextField
-      {...restProps}
-      value={displayValue}
-      onChange={onChange}
-      onKeyPress={onKeyPress}
-      onBlur={onBlur}
-    />
+      <div>
+          <label>{label}</label>
+          <input {...restProps} value={displayValue}
+                 onChange={onChange}
+                 onKeyUp={onKeyPress}
+                 onBlur={onBlur} type="text"/>
+      </div>
   );
 };
 

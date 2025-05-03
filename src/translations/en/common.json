@@ -131,8 +131,11 @@
     "no-save": {
       "title": "Choose a Save",
       "prompt": "No save file has been loaded.",
-      "save-location": "Save files can be found at <1>{{path}}</1>."
+      "save-location": "Save files can be found at"
     }
+  },
+  "home-page": {
+    "title": "Home"
   },
   "raw-editor-page": {
     "title": "Raw Editor"
